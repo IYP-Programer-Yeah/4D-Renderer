@@ -11,14 +11,7 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 
@@ -88,6 +81,14 @@ ipch/
 *.vsp
 *.vspx
 *.sap
+
+# Visual Studio Intermediate Build Files
+*.exp
+*.ipdb
+*.lastbuildstate
+*.tlog
+*.idb
+*.iobj
 
 # TFS 2012 Local Workspace
 $tf/
