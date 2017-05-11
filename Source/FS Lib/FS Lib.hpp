@@ -38,13 +38,13 @@ namespace FS_Lib
 		_FS_LIB_DLL_EXPORT ~File();
 		_FS_LIB_DLL_EXPORT File& operator= (const File& i_file);
 		_FS_LIB_DLL_EXPORT File& operator= (File&& i_file);
-		_FS_LIB_DLL_EXPORT bool save() const;//uses the current path to save the file, if the file doesnt exist dont try saving it, use save ass
+		_FS_LIB_DLL_EXPORT bool save() const;//uses the current path to save the file, if the file doesnt exist dont try saving it, use save as
 		_FS_LIB_DLL_EXPORT bool save_as(const std::string& i_path);//save the file to a new path, changes current path
 		_FS_LIB_DLL_EXPORT bool file_exists();//checks if the path is valid
-		_FS_LIB_DLL_EXPORT bool add_data(void* src, std::size_t size, std::size_t at);//adds data to the file data of given size at given point
-		_FS_LIB_DLL_EXPORT bool read_data(void* src, std::size_t size, std::size_t at) const;//reads data of given size at givven point
-		_FS_LIB_DLL_EXPORT const std::uint8_t* access_data(std::size_t at) const;//direct access to data at given point, this is the const version
-		_FS_LIB_DLL_EXPORT std::uint8_t* access_data(std::size_t at);//direct access to data at given point
+		_FS_LIB_DLL_EXPORT bool add_data(void* src, std::size_t size, std::size_t at = 0);//adds data to the file data of given size at given point
+		_FS_LIB_DLL_EXPORT bool read_data(void* src, std::size_t size, std::size_t at = 0) const;//reads data of given size at givven point
+		_FS_LIB_DLL_EXPORT const std::uint8_t* access_data(std::size_t at = 0) const;//direct access to data at given point, this is the const version
+		_FS_LIB_DLL_EXPORT std::uint8_t* access_data(std::size_t at = 0);//direct access to data at given point
 		_FS_LIB_DLL_EXPORT std::size_t size();//return the size of data, not the actual file
 		_FS_LIB_DLL_EXPORT std::string get_current_path();//returns current file path
 	};
