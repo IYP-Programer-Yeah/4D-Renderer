@@ -1,4 +1,4 @@
-#include "..\FS Lib\FS Lib.hpp"
+#include "../FS Lib/FS Lib.hpp"
 #include "Defs.h"
 int main()
 {

@@ -18,7 +18,7 @@ This is a simple library to access data from files.
 
 #include <vector>
 #include <cstdint>
-
+#include <string>
 
 namespace FS_Lib
 {
