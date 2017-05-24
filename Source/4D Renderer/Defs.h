@@ -8,7 +8,11 @@
 		#define CurrentDirectory(x) (x)
 	#endif
 #elif defined(__APPLE__)
-    #define CurrentDirectory(x) ("../../../" x)
+	#ifdef DEBUG
+		#define CurrentDirectory(x) ("../../../" x)
+	#else
+		#define CurrentDirectory(x) (x)
+	#endif
 #else
 	#define CurrentDirectory(x) (x)
 #endif
