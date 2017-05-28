@@ -30,24 +30,24 @@ namespace WindowHandler_Lib
 		WNDCLASS wnd_class;
 		DWORD window_style;
 #else
-		GLFWwindow* hwnd;
-		int resizable = ,
-		MAXIMIZED = GLFW_MAXIMIZED,
-		RED_BITS = GLFW_RED_BITS,
-		GREEN_BITS = GLFW_GREEN_BITS,
-		BLUE_BITS = GLFW_BLUE_BITS,
-		ALPHA_BITS = GLFW_ALPHA_BITS,
-		DEPTH_BITS = GLFW_DEPTH_BITS,
-		STENCIL_BITS = GLFW_STENCIL_BITS,
-		ACCUM_RED_BITS = GLFW_ACCUM_RED_BITS,
-		ACCUM_GREEN_BITS = GLFW_ACCUM_GREEN_BITS,
-		ACCUM_BLUE_BITS = GLFW_ACCUM_BLUE_BITS,
-		ACCUM_ALPHA_BITS = GLFW_ACCUM_ALPHA_BITS,
-		AUX_BUFFERS = GLFW_AUX_BUFFERS,
-		STEREO = GLFW_STEREO,
-		DOUBLEBUFFER = GLFW_DOUBLEBUFFER,
-		CLIENT_API = GLFW_CLIENT_API,
-		CONTEXT_CREATION_API = GLFW_CONTEXT_CREATION_API
+        GLFWwindow* hwnd;
+        int resizable = GLFW_TRUE;
+        int maximized = GLFW_FALSE;
+        int red_bits = 8;
+        int green_bits = 8;
+        int blue_bits = 8;
+        int alpha_bits = 8;
+        int depth_bits = 24;
+        int stencil_bits = 8;
+        int accum_red_bits = 0;
+        int accum_green_bits = 0;
+        int accum_blue_bits = 0;
+        int accum_alpha_bits = 0;
+        int aux_buffers = 0;
+        int stereo = GLFW_FALSE;
+        int doublebuffer = GLFW_TRUE;
+        int client_api = GLFW_OPENGL_API;
+        int context_creation_api = GLFW_NATIVE_CONTEXT_API;
 #endif
 		void set_title_value(std::string i_title);
 	public:
