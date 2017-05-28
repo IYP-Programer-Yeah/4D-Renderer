@@ -73,23 +73,23 @@ namespace WindowHandler_Lib
 		//init window style
 		wnd_style = WS_OVERLAPPEDWINDOW;
 #else
-		resizable = GLFW_TRUE;
-		maximized = GLFW_FALSE;
-		red_bits = 8;
-		green_bits = 8;
-		blue_bits = 8;
-		alpha_bits = 8;
-		depth_bits = 24;
-		stencil_bits = 8;
-		accum_red_bits = 0;
-		accum_green_bits = 0;
-		accum_blue_bits = 0;
-		accum_alpha_bits = 0;
-		aux_buffers = 0;
-		stereo = GLFW_FALSE;
-		doublebuffer = GLFW_TRUE;
-		client_api = GLFW_OPENGL_API;
-		context_creation_api = GLFW_NATIVE_CONTEXT_API;
+		wh_resizable = GLFW_TRUE;
+		wh_maximized = GLFW_FALSE;
+		wh_red_bits = 8;
+		wh_green_bits = 8;
+		wh_blue_bits = 8;
+		wh_alpha_bits = 8;
+		wh_depth_bits = 24;
+		wh_stencil_bits = 8;
+		wh_accum_red_bits = 0;
+		wh_accum_green_bits = 0;
+		wh_accum_blue_bits = 0;
+		wh_accum_alpha_bits = 0;
+		wh_aux_buffers = 0;
+		wh_stereo = GLFW_FALSE;
+		wh_doublebuffer = GLFW_TRUE;
+		wh_client_api = GLFW_OPENGL_API;
+		wh_context_creation_api = GLFW_NATIVE_CONTEXT_API;
 #endif
 	}
 	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint_value)
