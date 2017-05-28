@@ -8,13 +8,17 @@ This is a simple library to access data from files.
 *	1-implementaton of the rest of the hints
 *	2-handle hinstance on windows
 *	3-get attribute
-*
+*	4-window creation for windows can be enhanced to support parent window
 */
 
 #define _WINDOW_HANLER_LIB_DLL_EXPORTS
 #include "WindowHandler Lib.hpp"
 namespace WindowHandler_Lib
 {
+	LRESULT CALLBACK default_wnd_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+	{
+		return DefWindowProc(hWnd, Msg, wParam, lParam);//return default reaction
+	}
 
 	void WindowHandler::set_title_value(std::string i_title)
 	{
@@ -23,8 +27,6 @@ namespace WindowHandler_Lib
 		wnd_class.lpszClassName = title.c_str();//kind safe
 #endif
 	}
-
-
 
 	WindowHandler::WindowHandler() : pfd ()
 	{
@@ -58,6 +60,7 @@ namespace WindowHandler_Lib
 		wnd_class.hCursor = LoadCursor(NULL, IDC_ARROW); //set the cursor to arrow
 		wnd_class.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //clear the window with white
 		wnd_class.lpszMenuName = NULL;//no menu
+		wnd_class.lpfnWndProc = default_wnd_proc;
 /*#ifndef _M_X64 //if 32bit
 		Main_Windows.WndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCEA(IDI_ICON1)); //set the icon 32bit
 #else          //if 64bit
@@ -65,59 +68,59 @@ namespace WindowHandler_Lib
 #endif*/
 		
 		//init window style
-		window_style = 0;
+		wnd_style = WS_OVERLAPPEDWINDOW;
 	}
 	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint_value)
 	{
 #if defined(_WIN32) || defined(__WIN32__)
 		switch (window_hint)
 		{
-		case RESIZABLE:
-			window_style = (hint_value) ? (window_style | WS_THICKFRAME) : (window_style & !WS_THICKFRAME);
+		case WH_RESIZABLE:
+			wnd_style = (hint_value) ? (wnd_style | WS_THICKFRAME) : (wnd_style & !WS_THICKFRAME);
 			break;
-		case MINIMIZED:
-			window_style = (hint_value) ? (window_style | WS_MINIMIZE) : (window_style & !WS_MINIMIZE);
+		case WH_MINIMIZED:
+			wnd_style = (hint_value) ? (wnd_style | WS_MINIMIZE) : (wnd_style & !WS_MINIMIZE);
 			break;
-		case MAXIMIZED:
-			window_style = (hint_value) ? (window_style | WS_MAXIMIZE) : (window_style & !WS_MAXIMIZE);
+		case WH_MAXIMIZED:
+			wnd_style = (hint_value) ? (wnd_style | WS_MAXIMIZE) : (wnd_style & !WS_MAXIMIZE);
 			break;
-		case RED_BITS:
+		case WH_RED_BITS:
 			pfd.cRedBits = hint_value;
 			break;
-		case GREEN_BITS:
+		case WH_GREEN_BITS:
 			pfd.cGreenBits = hint_value;
 			break;
-		case BLUE_BITS:
+		case WH_BLUE_BITS:
 			pfd.cBlueBits = hint_value;
 			break;
-		case ALPHA_BITS:
+		case WH_ALPHA_BITS:
 			pfd.cAlphaBits = hint_value;
 			break;
-		case DEPTH_BITS:
+		case WH_DEPTH_BITS:
 			pfd.cDepthBits = hint_value;
 			break;
-		case STENCIL_BITS:
+		case WH_STENCIL_BITS:
 			pfd.cStencilBits = hint_value;
 			break;
-		case ACCUM_RED_BITS:
+		case WH_ACCUM_RED_BITS:
 			pfd.cAccumRedBits = hint_value;
 			break;
-		case ACCUM_GREEN_BITS:
+		case WH_ACCUM_GREEN_BITS:
 			pfd.cAccumGreenBits = hint_value;
 			break;
-		case ACCUM_BLUE_BITS:
+		case WH_ACCUM_BLUE_BITS:
 			pfd.cAccumBlueBits = hint_value;
 			break;
-		case ACCUM_ALPHA_BITS:
+		case WH_ACCUM_ALPHA_BITS:
 			pfd.cAccumAlphaBits = hint_value;
 			break;
-		case AUX_BUFFERS:
+		case WH_AUX_BUFFERS:
 			pfd.cAuxBuffers = hint_value;
 			break;
-		case STEREO:
+		case WH_STEREO:
 			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO): ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
 			break;
-		case DOUBLEBUFFER:
+		case WH_DOUBLEBUFFER:
 			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_DOUBLEBUFFER_DONTCARE) | PFD_DOUBLEBUFFER) : ((pfd.dwFlags & !PFD_DOUBLEBUFFER) | PFD_DOUBLEBUFFER_DONTCARE)) : (pfd.dwFlags & !(PFD_DOUBLEBUFFER | PFD_DOUBLEBUFFER_DONTCARE));//mutually exclusive
 			break;
 		default:
@@ -128,9 +131,17 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	void WindowHandler::create_window(int x, int y, int w, int h, std::string i_title)
+	bool WindowHandler::create_window(int x, int y, int w, int h, std::string i_title)
 	{
-		
+		set_title_value(i_title);
+#if defined(_WIN32) || defined(__WIN32__)
+		RegisterClass(&wnd_class);
+		hwnd = CreateWindow(i_title.c_str(), i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, NULL);
+#else
+#endif
+		if (hwnd == NULL)
+			return false;
+		return true;
 	}
 
 	void WindowHandler::show_window(WindowShowMode window_show_mode)
