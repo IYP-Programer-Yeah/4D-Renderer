@@ -29,6 +29,8 @@ namespace WindowHandler_Lib
 		PIXELFORMATDESCRIPTOR pfd;
 		WNDCLASS wnd_class;
 		DWORD wnd_style;
+		void init_pfd();
+		void init_wnd_class();
 #else
         GLFWwindow* hwnd;
         int wh_resizable;
@@ -49,6 +51,7 @@ namespace WindowHandler_Lib
 		int wh_client_api;
 		int wh_context_creation_api;
 #endif
+		void init_wnd_hints();
 		void set_title_value(std::string i_title);
 	public:
 		enum WindowShowMode//not all the values availble for all the platforms
@@ -144,6 +147,8 @@ namespace WindowHandler_Lib
 		_WINDOW_HANLER_LIB_DLL_EXPORT void set_location_x(int x);//only accessable after window creation
 		_WINDOW_HANLER_LIB_DLL_EXPORT void set_location_y(int y);//only accessable after window creation
 		_WINDOW_HANLER_LIB_DLL_EXPORT void set_title(std::string i_title);//only accessable after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void peek_event();
+		_WINDOW_HANLER_LIB_DLL_EXPORT void get_event();
 
 #if defined(_WIN32) || defined(__WIN32__)
 		_WINDOW_HANLER_LIB_DLL_EXPORT void set_wnd_proc(WNDPROC wnd);//single wnd proc on windows

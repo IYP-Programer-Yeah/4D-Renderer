@@ -20,6 +20,14 @@ namespace WindowHandler_Lib
 	{
 		return DefWindowProc(hWnd, Msg, wParam, lParam);//return default reaction
 	}
+#else
+	bool init_glfw()
+	{
+		static bool glfw_initialized = false;
+		if (!glfw_initialized)
+			glfw_initialized = glfwInit();
+		return glfw_initialized;
+	}
 #endif
 
 	void WindowHandler::set_title_value(std::string i_title)
@@ -30,10 +38,9 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	WindowHandler::WindowHandler()
-	{
 #if defined(_WIN32) || defined(__WIN32__)
-		//init pfd
+	void WindowHandler::init_pfd()
+	{
 		pfd = {
 			sizeof(PIXELFORMATDESCRIPTOR),
 			1,
@@ -51,9 +58,12 @@ namespace WindowHandler_Lib
 			0,
 			0,
 			PFD_MAIN_PLANE,
-			0,                     
+			0,
 			0, 0, 0 };
+	}
 
+	void WindowHandler::init_wnd_class()
+	{
 		//init window class
 		wnd_class.style = CS_HREDRAW | CS_VREDRAW;
 		wnd_class.lpfnWndProc = NULL;
@@ -64,12 +74,22 @@ namespace WindowHandler_Lib
 		wnd_class.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //clear the window with white
 		wnd_class.lpszMenuName = NULL;//no menu
 		wnd_class.lpfnWndProc = default_wnd_proc;
-/*#ifndef _M_X64 //if 32bit
+		/*#ifndef _M_X64 //if 32bit
 		Main_Windows.WndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCEA(IDI_ICON1)); //set the icon 32bit
-#else          //if 64bit
+		#else          //if 64bit
 		Main_Windows.WndClass.hIcon = LoadIcon(hInstance, (LPCSTR)MAKEINTRESOURCEA(IDI_ICON1)); //set the icon 64bit
-#endif*/
-		
+		#endif*/
+	}
+
+
+#else
+#endif
+
+	void WindowHandler::init_wnd_hints()
+	{
+#if defined(_WIN32) || defined(__WIN32__)
+		init_pfd();
+		init_wnd_class();
 		//init window style
 		wnd_style = WS_OVERLAPPEDWINDOW;
 #else
@@ -92,6 +112,16 @@ namespace WindowHandler_Lib
 		wh_context_creation_api = GLFW_NATIVE_CONTEXT_API;
 #endif
 	}
+
+	WindowHandler::WindowHandler()
+	{
+#if defined(_WIN32) || defined(__WIN32__)
+#else
+		init_glfw();
+#endif
+		init_wnd_hints();
+	}
+
 	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint_value)
 	{
 		switch (window_hint)
@@ -218,7 +248,6 @@ namespace WindowHandler_Lib
 		RegisterClass(&wnd_class);
 		hwnd = CreateWindow(i_title.c_str(), i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, NULL);
 #else
-        /*
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, wh_resizable);
         glfwWindowHint(GLFW_MAXIMIZED, wh_maximized);
@@ -237,17 +266,6 @@ namespace WindowHandler_Lib
         glfwWindowHint(GLFW_DOUBLEBUFFER, wh_doublebuffer);
         glfwWindowHint(GLFW_CLIENT_API, wh_client_api);
         glfwWindowHint(GLFW_CONTEXT_CREATION_API, wh_context_creation_api);
-        */
-        if(!glfwInit())
-            throw std::runtime_error("glfwInit failed");
-        
-
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-        glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
         hwnd = glfwCreateWindow(w, h, i_title.c_str(), NULL, NULL);
 #endif
 		if (hwnd == NULL)
@@ -436,6 +454,33 @@ namespace WindowHandler_Lib
 		SetWindowText(hwnd, title.c_str());
 #else
 		glfwSetWindowTitle(hwnd, title.c_str());
+#endif
+	}
+
+	void WindowHandler::peek_event()
+	{
+#if defined(_WIN32) || defined(__WIN32__)
+		MSG msg;
+		if (PeekMessage(&msg, hwnd, NULL, NULL, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+#else
+		glfwPollEvents();
+#endif
+	}
+	void WindowHandler::get_event()
+	{
+#if defined(_WIN32) || defined(__WIN32__)
+		MSG msg;
+		if (GetMessage(&msg, hwnd, NULL, NULL))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+#else
+		glfwWaitEvents();
 #endif
 	}
 }
