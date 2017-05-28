@@ -59,6 +59,7 @@ namespace WindowHandler_Lib
 		}
 #endif
 	}
+
 	void WindowHandler::close_window()
 	{
 #if defined(_WIN32) || defined(__WIN32__)
@@ -67,10 +68,12 @@ namespace WindowHandler_Lib
 		glfwDestroyWindow(&hwnd);
 #endif
 	}
+
 	WindowHandle WindowHandler::get_handle()
 	{
 		return WindowHandle(hwnd);
 	}
+
 #if defined(_WIN32) || defined(__WIN32__)
 	void WindowHandler::set_wnd_proc(WNDPROC i_wnd_proc)
 	{
@@ -91,6 +94,7 @@ namespace WindowHandler_Lib
 		return w;
 #endif
 	}
+
 	int WindowHandler::get_height()
 	{
 #if defined(_WIN32) || defined(__WIN32__)
@@ -103,6 +107,7 @@ namespace WindowHandler_Lib
 		return h;
 #endif
 	}
+
 	int WindowHandler::get_location_x()
 	{
 #if defined(_WIN32) || defined(__WIN32__)
@@ -115,6 +120,7 @@ namespace WindowHandler_Lib
 		return x;
 #endif
 	}
+
 	int WindowHandler::get_location_y()
 	{
 #if defined(_WIN32) || defined(__WIN32__)
@@ -127,23 +133,48 @@ namespace WindowHandler_Lib
 		return y;
 #endif
 	}
+
 	std::string WindowHandler::get_title()
 	{
 		return title;
 	}
+
 	void WindowHandler::set_width(int width)
 	{
-
+#if defined(_WIN32) || defined(__WIN32__)
+		SetWindowPos(hwnd, HWND_TOP, 0, 0, width, get_height(), SWP_NOZORDER | SWP_NOMOVE);
+#else
+		glfwSetWindowSize(&hwnd, width, get_height());
+#endif
 	}
+
 	void WindowHandler::set_height(int height)
 	{
+#if defined(_WIN32) || defined(__WIN32__)
+		SetWindowPos(hwnd, HWND_TOP, get_width(), height, 0, 0, SWP_NOZORDER | SWP_NOMOVE);
+#else
+		glfwSetWindowSize(&hwnd, get_width(), height);
+#endif
 	}
+
 	void WindowHandler::set_location_x(int x)
 	{
+#if defined(_WIN32) || defined(__WIN32__)
+		SetWindowPos(hwnd, HWND_TOP, x, get_location_y(), 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+#else
+		glfwGetWindowPos(&hwnd, x, get_location_y());
+#endif
 	}
+
 	void WindowHandler::set_location_y(int y)
 	{
+#if defined(_WIN32) || defined(__WIN32__)
+		SetWindowPos(hwnd, HWND_TOP, get_location_x(), y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+#else
+		glfwGetWindowPos(&hwnd, get_location_y(), y);
+#endif
 	}
+
 	void WindowHandler::set_title(std::string i_title)
 	{
 		title = i_title;
