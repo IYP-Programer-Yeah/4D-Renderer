@@ -34,6 +34,20 @@
                ReferencedContainer = "container:../../FS Lib/FS Lib/FS Lib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BB6DC2361ED9BA46008FAD2C"
+               BuildableName = "libWindowHandler Lib.dylib"
+               BlueprintName = "WindowHandler Lib"
+               ReferencedContainer = "container:../../WindowHandler Lib/WindowHandler Lib/WindowHandler Lib.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

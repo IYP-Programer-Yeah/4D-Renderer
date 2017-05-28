@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:WindowHandler Lib/WindowHandler Lib/WindowHandler Lib.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:FS Lib/FS Lib/FS Lib.xcodeproj">
    </FileRef>
    <FileRef

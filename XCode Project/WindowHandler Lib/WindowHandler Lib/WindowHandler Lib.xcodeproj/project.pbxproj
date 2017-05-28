@@ -7,18 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB056CDC1ED2E64600DC2D99 /* FS Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB056CDA1ED2E64600DC2D99 /* FS Lib.cpp */; };
-		BB056CDD1ED2E64600DC2D99 /* FS Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB056CDB1ED2E64600DC2D99 /* FS Lib.hpp */; };
+		BB6DC2431ED9BA68008FAD2C /* WindowHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6DC23F1ED9BA68008FAD2C /* WindowHandle.cpp */; };
+		BB6DC2441ED9BA68008FAD2C /* WindowHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */; };
+		BB6DC2451ED9BA68008FAD2C /* WindowHandler Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */; };
+		BB6DC2461ED9BA68008FAD2C /* WindowHandler Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB056CC01ED2E27E00DC2D99 /* libFS Lib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libFS Lib.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB056CDA1ED2E64600DC2D99 /* FS Lib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "FS Lib.cpp"; path = "../../../Source/FS Lib/FS Lib.cpp"; sourceTree = "<group>"; };
-		BB056CDB1ED2E64600DC2D99 /* FS Lib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "FS Lib.hpp"; path = "../../../Source/FS Lib/FS Lib.hpp"; sourceTree = "<group>"; };
+		BB6DC2371ED9BA46008FAD2C /* libWindowHandler Lib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libWindowHandler Lib.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB6DC23F1ED9BA68008FAD2C /* WindowHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WindowHandle.cpp; path = "../../../Source/WindowHandler Lib/WindowHandle.cpp"; sourceTree = "<group>"; };
+		BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WindowHandle.hpp; path = "../../../Source/WindowHandler Lib/WindowHandle.hpp"; sourceTree = "<group>"; };
+		BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "WindowHandler Lib.cpp"; path = "../../../Source/WindowHandler Lib/WindowHandler Lib.cpp"; sourceTree = "<group>"; };
+		BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "WindowHandler Lib.hpp"; path = "../../../Source/WindowHandler Lib/WindowHandler Lib.hpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BB056CBD1ED2E27E00DC2D99 /* Frameworks */ = {
+		BB6DC2341ED9BA46008FAD2C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -28,27 +32,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BB056CB71ED2E27E00DC2D99 = {
+		BB6DC22E1ED9BA46008FAD2C = {
 			isa = PBXGroup;
 			children = (
-				BB6DC2471ED9BAAC008FAD2C /* Source */,
-				BB056CC11ED2E27E00DC2D99 /* Products */,
+				BB6DC23E1ED9BA50008FAD2C /* Source */,
+				BB6DC2381ED9BA46008FAD2C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		BB056CC11ED2E27E00DC2D99 /* Products */ = {
+		BB6DC2381ED9BA46008FAD2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BB056CC01ED2E27E00DC2D99 /* libFS Lib.dylib */,
+				BB6DC2371ED9BA46008FAD2C /* libWindowHandler Lib.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BB6DC2471ED9BAAC008FAD2C /* Source */ = {
+		BB6DC23E1ED9BA50008FAD2C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BB056CDA1ED2E64600DC2D99 /* FS Lib.cpp */,
-				BB056CDB1ED2E64600DC2D99 /* FS Lib.hpp */,
+				BB6DC23F1ED9BA68008FAD2C /* WindowHandle.cpp */,
+				BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */,
+				BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */,
+				BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -56,80 +62,82 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		BB056CBE1ED2E27E00DC2D99 /* Headers */ = {
+		BB6DC2351ED9BA46008FAD2C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB056CDD1ED2E64600DC2D99 /* FS Lib.hpp in Headers */,
+				BB6DC2461ED9BA68008FAD2C /* WindowHandler Lib.hpp in Headers */,
+				BB6DC2441ED9BA68008FAD2C /* WindowHandle.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		BB056CBF1ED2E27E00DC2D99 /* FS Lib */ = {
+		BB6DC2361ED9BA46008FAD2C /* WindowHandler Lib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BB056CC41ED2E27E00DC2D99 /* Build configuration list for PBXNativeTarget "FS Lib" */;
+			buildConfigurationList = BB6DC23B1ED9BA46008FAD2C /* Build configuration list for PBXNativeTarget "WindowHandler Lib" */;
 			buildPhases = (
-				BB056CBC1ED2E27E00DC2D99 /* Sources */,
-				BB056CBD1ED2E27E00DC2D99 /* Frameworks */,
-				BB056CBE1ED2E27E00DC2D99 /* Headers */,
+				BB6DC2331ED9BA46008FAD2C /* Sources */,
+				BB6DC2341ED9BA46008FAD2C /* Frameworks */,
+				BB6DC2351ED9BA46008FAD2C /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "FS Lib";
-			productName = "FS Lib";
-			productReference = BB056CC01ED2E27E00DC2D99 /* libFS Lib.dylib */;
+			name = "WindowHandler Lib";
+			productName = "WindowHandler Lib";
+			productReference = BB6DC2371ED9BA46008FAD2C /* libWindowHandler Lib.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		BB056CB81ED2E27E00DC2D99 /* Project object */ = {
+		BB6DC22F1ED9BA46008FAD2C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = alireza;
 				TargetAttributes = {
-					BB056CBF1ED2E27E00DC2D99 = {
+					BB6DC2361ED9BA46008FAD2C = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = B4VLG8L7YJ;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = BB056CBB1ED2E27E00DC2D99 /* Build configuration list for PBXProject "FS Lib" */;
+			buildConfigurationList = BB6DC2321ED9BA46008FAD2C /* Build configuration list for PBXProject "WindowHandler Lib" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = BB056CB71ED2E27E00DC2D99;
-			productRefGroup = BB056CC11ED2E27E00DC2D99 /* Products */;
+			mainGroup = BB6DC22E1ED9BA46008FAD2C;
+			productRefGroup = BB6DC2381ED9BA46008FAD2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BB056CBF1ED2E27E00DC2D99 /* FS Lib */,
+				BB6DC2361ED9BA46008FAD2C /* WindowHandler Lib */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BB056CBC1ED2E27E00DC2D99 /* Sources */ = {
+		BB6DC2331ED9BA46008FAD2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB056CDC1ED2E64600DC2D99 /* FS Lib.cpp in Sources */,
+				BB6DC2431ED9BA68008FAD2C /* WindowHandle.cpp in Sources */,
+				BB6DC2451ED9BA68008FAD2C /* WindowHandler Lib.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		BB056CC21ED2E27E00DC2D99 /* Debug */ = {
+		BB6DC2391ED9BA46008FAD2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -176,7 +184,7 @@
 			};
 			name = Debug;
 		};
-		BB056CC31ED2E27E00DC2D99 /* Release */ = {
+		BB6DC23A1ED9BA46008FAD2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -216,22 +224,24 @@
 			};
 			name = Release;
 		};
-		BB056CC51ED2E27E00DC2D99 /* Debug */ = {
+		BB6DC23C1ED9BA46008FAD2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Lib/$(CONFIGURATION)/x64";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = B4VLG8L7YJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
 				OBJROOT = Build;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = "";
 			};
 			name = Debug;
 		};
-		BB056CC61ED2E27E00DC2D99 /* Release */ = {
+		BB6DC23D1ED9BA46008FAD2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Lib/$(CONFIGURATION)/x64";
@@ -251,25 +261,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BB056CBB1ED2E27E00DC2D99 /* Build configuration list for PBXProject "FS Lib" */ = {
+		BB6DC2321ED9BA46008FAD2C /* Build configuration list for PBXProject "WindowHandler Lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BB056CC21ED2E27E00DC2D99 /* Debug */,
-				BB056CC31ED2E27E00DC2D99 /* Release */,
+				BB6DC2391ED9BA46008FAD2C /* Debug */,
+				BB6DC23A1ED9BA46008FAD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BB056CC41ED2E27E00DC2D99 /* Build configuration list for PBXNativeTarget "FS Lib" */ = {
+		BB6DC23B1ED9BA46008FAD2C /* Build configuration list for PBXNativeTarget "WindowHandler Lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BB056CC51ED2E27E00DC2D99 /* Debug */,
-				BB056CC61ED2E27E00DC2D99 /* Release */,
+				BB6DC23C1ED9BA46008FAD2C /* Debug */,
+				BB6DC23D1ED9BA46008FAD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = BB056CB81ED2E27E00DC2D99 /* Project object */;
+	rootObject = BB6DC22F1ED9BA46008FAD2C /* Project object */;
 }
