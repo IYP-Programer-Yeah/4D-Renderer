@@ -195,9 +195,6 @@ namespace WindowHandler_Lib
 		default:
 			break;
 		}
-#else
-		glfwWindowHint(window_hint, hint_value);
-#endif
 	}
 
 	bool WindowHandler::create_window(int x, int y, int w, int h, std::string i_title)
