@@ -17,42 +17,42 @@ namespace WindowHandler_Lib
 		case MAXIMIZE:
 			break;
 		case MINIMIZE:
-			glfwIconifyWindow(&hwnd);
+			glfwIconifyWindow(hwnd);
 			break;
 		case HIDE:
-			glfwHideWindow(&hwnd);
+			glfwHideWindow(hwnd);
 			break;
 		case RESTORE:
-			glfwRestoreWindow(&hwnd);
+			glfwRestoreWindow(hwnd);
 			break;
 		case SHOW:
-			glfwShowWindow(&hwnd);
-			glfwFocusWindow(&hwnd);
+			glfwShowWindow(hwnd);
+			glfwFocusWindow(hwnd);
 			break;
 		case SHOWMAXIMIZED:
-			glfwShowWindow(&hwnd);
-			glfwFocusWindow(&hwnd);
+			glfwShowWindow(hwnd);
+			glfwFocusWindow(hwnd);
 			break;
 		case SHOWMINIMIZED:
-			glfwIconifyWindow(&hwnd);
-			glfwShowWindow(&hwnd);
-			glfwFocusWindow(&hwnd);
+			glfwIconifyWindow(hwnd);
+			glfwShowWindow(hwnd);
+			glfwFocusWindow(hwnd);
 			break;
 		case SHOWMINNOACTIVE:
-			glfwIconifyWindow(&hwnd);
-			glfwShowWindow(&hwnd);
+			glfwIconifyWindow(hwnd);
+			glfwShowWindow(hwnd);
 			break;
 		case SHOWNA:
-			glfwShowWindow(&hwnd);
+			glfwShowWindow(hwnd);
 			break;
 		case SHOWNOACTIVATE:
-			glfwRestoreWindow(&hwnd);
-			glfwShowWindow(&hwnd);
+			glfwRestoreWindow(hwnd);
+			glfwShowWindow(hwnd);
 			break;
 		case SHOWNORMAL:
-			glfwRestoreWindow(&hwnd);
-			glfwShowWindow(&hwnd);
-			glfwFocusWindow(&hwnd);
+			glfwRestoreWindow(hwnd);
+			glfwShowWindow(hwnd);
+			glfwFocusWindow(hwnd);
 			break;
 		default:
 			break;
@@ -65,7 +65,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 		DestroyWindow(hwnd);
 #else
-		glfwDestroyWindow(&hwnd);
+		glfwDestroyWindow(hwnd);
 #endif
 	}
 
@@ -90,7 +90,7 @@ namespace WindowHandler_Lib
 		return window_rect.right - window_rect.left;
 #else
 		int h, w;
-		glfwGetWindowSize(&hwnd, &w, &h);
+		glfwGetWindowSize(hwnd, &w, &h);
 		return w;
 #endif
 	}
@@ -103,7 +103,7 @@ namespace WindowHandler_Lib
 		return window_rect.bottom - window_rect.top;
 #else
 		int h, w;
-		glfwGetWindowSize(&hwnd, &w, &h);
+		glfwGetWindowSize(hwnd, &w, &h);
 		return h;
 #endif
 	}
@@ -116,7 +116,7 @@ namespace WindowHandler_Lib
 		return window_rect.left;
 #else
 		int x, y;
-		glfwGetWindowPos(&hwnd, &x, &y);
+		glfwGetWindowPos(hwnd, &x, &y);
 		return x;
 #endif
 	}
@@ -129,7 +129,7 @@ namespace WindowHandler_Lib
 		return window_rect.top;
 #else
 		int x, y;
-		glfwGetWindowPos(&hwnd, &x, &y);
+		glfwGetWindowPos(hwnd, &x, &y);
 		return y;
 #endif
 	}
@@ -144,7 +144,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowPos(hwnd, HWND_TOP, 0, 0, width, get_height(), SWP_NOZORDER | SWP_NOMOVE);
 #else
-		glfwSetWindowSize(&hwnd, width, get_height());
+		glfwSetWindowSize(hwnd, width, get_height());
 #endif
 	}
 
@@ -153,7 +153,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowPos(hwnd, HWND_TOP, get_width(), height, 0, 0, SWP_NOZORDER | SWP_NOMOVE);
 #else
-		glfwSetWindowSize(&hwnd, get_width(), height);
+		glfwSetWindowSize(hwnd, get_width(), height);
 #endif
 	}
 
@@ -162,7 +162,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowPos(hwnd, HWND_TOP, x, get_location_y(), 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 #else
-		glfwGetWindowPos(&hwnd, x, get_location_y());
+		glfwSetWindowPos(hwnd, x, get_location_y());
 #endif
 	}
 
@@ -171,7 +171,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowPos(hwnd, HWND_TOP, get_location_x(), y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 #else
-		glfwGetWindowPos(&hwnd, get_location_y(), y);
+		glfwSetWindowPos(hwnd, get_location_y(), y);
 #endif
 	}
 
@@ -181,7 +181,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowText(hwnd, title.c_str());
 #else
-		glfwSetWindowTitle(&hwnd, title.c_str());
+		glfwSetWindowTitle(hwnd, title.c_str());
 #endif
 	}
 }

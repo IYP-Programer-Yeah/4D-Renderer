@@ -11,6 +11,8 @@
 		BB6DC2441ED9BA68008FAD2C /* WindowHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */; };
 		BB6DC2451ED9BA68008FAD2C /* WindowHandler Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */; };
 		BB6DC2461ED9BA68008FAD2C /* WindowHandler Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */; };
+		BB98F4F31EDAACD80013D037 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F21EDAACD80013D037 /* libglfw.3.2.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
+		BB98F4F51EDAACF10013D037 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F41EDAACF10013D037 /* libglfw.3.2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WindowHandle.hpp; path = "../../../Source/WindowHandler Lib/WindowHandle.hpp"; sourceTree = "<group>"; };
 		BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "WindowHandler Lib.cpp"; path = "../../../Source/WindowHandler Lib/WindowHandler Lib.cpp"; sourceTree = "<group>"; };
 		BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "WindowHandler Lib.hpp"; path = "../../../Source/WindowHandler Lib/WindowHandler Lib.hpp"; sourceTree = "<group>"; };
+		BB98F4F21EDAACD80013D037 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../Lib/Debug/x64/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		BB98F4F41EDAACF10013D037 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../Lib/Release/x64/libglfw.3.2.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB98F4F51EDAACF10013D037 /* libglfw.3.2.dylib in Frameworks */,
+				BB98F4F31EDAACD80013D037 /* libglfw.3.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +43,7 @@
 			children = (
 				BB6DC23E1ED9BA50008FAD2C /* Source */,
 				BB6DC2381ED9BA46008FAD2C /* Products */,
+				BB98F4F11EDAACD70013D037 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,6 +64,15 @@
 				BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		BB98F4F11EDAACD70013D037 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB98F4F41EDAACF10013D037 /* libglfw.3.2.dylib */,
+				BB98F4F21EDAACD80013D037 /* libglfw.3.2.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

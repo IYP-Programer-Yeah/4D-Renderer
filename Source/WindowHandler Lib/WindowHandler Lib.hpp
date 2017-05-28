@@ -22,13 +22,13 @@ This is a simple library to access data from files.
 namespace WindowHandler_Lib
 {
 	class WindowHandler
-	{
+    {
+        std::string title;
 #if defined(_WIN32) || defined(__WIN32__)
 		HWND hwnd;
 		WNDPROC wnd_proc;
 		PIXELFORMATDESCRIPTOR pfd;
 		WNDCLASS wnd_class;
-		std::string title;
 #else
 		GLFWwindow* hwnd;
 #endif

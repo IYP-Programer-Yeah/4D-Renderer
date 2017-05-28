@@ -8,6 +8,8 @@ This is a simple library to access data from files.
 
 #if defined(_WIN32) || defined(__WIN32__)
 	#include <Windows.h>
+#else
+    #include "../../Includes/GLFW/glfw3.h"
 #endif
 
 namespace WindowHandler_Lib
@@ -26,7 +28,7 @@ namespace WindowHandler_Lib
 			hdc = GetDC(i_hwnd);
 		}
 #else
-		WindowHandle(GLFWwindow i_hwnd)
+		WindowHandle(GLFWwindow* i_hwnd)
 		{
 			hwnd = i_hwnd;
 		}
