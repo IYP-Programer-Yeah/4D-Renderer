@@ -15,10 +15,12 @@ This is a simple library to access data from files.
 #include "WindowHandler Lib.hpp"
 namespace WindowHandler_Lib
 {
+#if defined(_WIN32) || defined(__WIN32__)
 	LRESULT CALLBACK default_wnd_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 	{
 		return DefWindowProc(hWnd, Msg, wParam, lParam);//return default reaction
 	}
+#endif
 
 	void WindowHandler::set_title_value(std::string i_title)
 	{
@@ -30,6 +32,7 @@ namespace WindowHandler_Lib
 
 	WindowHandler::WindowHandler() : pfd ()
 	{
+#if defined(_WIN32) || defined(__WIN32__)
 		//init pfd
 		pfd = {
 			sizeof(PIXELFORMATDESCRIPTOR),
@@ -69,59 +72,125 @@ namespace WindowHandler_Lib
 		
 		//init window style
 		wnd_style = WS_OVERLAPPEDWINDOW;
+#else
+		resizable = GLFW_TRUE;
+		maximized = GLFW_FALSE;
+		red_bits = 8;
+		green_bits = 8;
+		blue_bits = 8;
+		alpha_bits = 8;
+		depth_bits = 24;
+		stencil_bits = 8;
+		accum_red_bits = 0;
+		accum_green_bits = 0;
+		accum_blue_bits = 0;
+		accum_alpha_bits = 0;
+		aux_buffers = 0;
+		stereo = GLFW_FALSE;
+		doublebuffer = GLFW_TRUE;
+		client_api = GLFW_OPENGL_API;
+		context_creation_api = GLFW_NATIVE_CONTEXT_API;
+#endif
 	}
 	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint_value)
 	{
-#if defined(_WIN32) || defined(__WIN32__)
 		switch (window_hint)
 		{
 		case WH_RESIZABLE:
+#if defined(_WIN32) || defined(__WIN32__)
 			wnd_style = (hint_value) ? (wnd_style | WS_THICKFRAME) : (wnd_style & !WS_THICKFRAME);
+#else
+			resizable = (hint) ? GLFW_TRUE : GLFW_FALSE;
+#endif
 			break;
+#if defined(_WIN32) || defined(__WIN32__)
 		case WH_MINIMIZED:
 			wnd_style = (hint_value) ? (wnd_style | WS_MINIMIZE) : (wnd_style & !WS_MINIMIZE);
 			break;
+#endif
 		case WH_MAXIMIZED:
+#if defined(_WIN32) || defined(__WIN32__)
 			wnd_style = (hint_value) ? (wnd_style | WS_MAXIMIZE) : (wnd_style & !WS_MAXIMIZE);
+#else
+#endif
 			break;
 		case WH_RED_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cRedBits = hint_value;
+#else
+#endif
 			break;
 		case WH_GREEN_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cGreenBits = hint_value;
+#else
+#endif
 			break;
 		case WH_BLUE_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cBlueBits = hint_value;
+#else
+#endif
 			break;
 		case WH_ALPHA_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAlphaBits = hint_value;
+#else
+#endif
 			break;
 		case WH_DEPTH_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cDepthBits = hint_value;
+#else
+#endif
 			break;
 		case WH_STENCIL_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cStencilBits = hint_value;
+#else
+#endif
 			break;
 		case WH_ACCUM_RED_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumRedBits = hint_value;
+#else
+#endif
 			break;
 		case WH_ACCUM_GREEN_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumGreenBits = hint_value;
+#else
+#endif
 			break;
 		case WH_ACCUM_BLUE_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumBlueBits = hint_value;
+#else
+#endif
 			break;
 		case WH_ACCUM_ALPHA_BITS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumAlphaBits = hint_value;
+#else
+#endif
 			break;
 		case WH_AUX_BUFFERS:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAuxBuffers = hint_value;
+#else
+#endif
 			break;
 		case WH_STEREO:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO): ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
+#else
+#endif
 			break;
 		case WH_DOUBLEBUFFER:
+#if defined(_WIN32) || defined(__WIN32__)
 			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_DOUBLEBUFFER_DONTCARE) | PFD_DOUBLEBUFFER) : ((pfd.dwFlags & !PFD_DOUBLEBUFFER) | PFD_DOUBLEBUFFER_DONTCARE)) : (pfd.dwFlags & !(PFD_DOUBLEBUFFER | PFD_DOUBLEBUFFER_DONTCARE));//mutually exclusive
+#else
+#endif
 			break;
 		default:
 			break;

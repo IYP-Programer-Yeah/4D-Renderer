@@ -31,23 +31,23 @@ namespace WindowHandler_Lib
 		DWORD wnd_style;
 #else
         GLFWwindow* hwnd;
-        int resizable = GLFW_TRUE;
-        int maximized = GLFW_FALSE;
-        int red_bits = 8;
-        int green_bits = 8;
-        int blue_bits = 8;
-        int alpha_bits = 8;
-        int depth_bits = 24;
-        int stencil_bits = 8;
-        int accum_red_bits = 0;
-        int accum_green_bits = 0;
-        int accum_blue_bits = 0;
-        int accum_alpha_bits = 0;
-        int aux_buffers = 0;
-        int stereo = GLFW_FALSE;
-        int doublebuffer = GLFW_TRUE;
-        int client_api = GLFW_OPENGL_API;
-        int context_creation_api = GLFW_NATIVE_CONTEXT_API;
+        int resizable;
+        int maximized;
+		int red_bits;
+        int green_bits;
+        int blue_bits;
+        int alpha_bits;
+        int depth_bits;
+		int stencil_bits;
+		int accum_red_bits;
+		int accum_green_bits;
+        int accum_blue_bits;
+		int accum_alpha_bits;
+        int aux_buffers;
+        int stereo;
+		int doublebuffer;
+		int client_api;
+		int context_creation_api;
 #endif
 		void set_title_value(std::string i_title);
 	public:
