@@ -117,77 +117,77 @@ namespace WindowHandler_Lib
 			break;
 		case WH_RED_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cRedBits = hint_value;
+			pfd.cRedBits = (BYTE)hint_value;
 #else
                 wh_red_bits = hint_value;
 #endif
 			break;
 		case WH_GREEN_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cGreenBits = hint_value;
+			pfd.cGreenBits = (BYTE)hint_value;
 #else
                 wh_green_bits = hint_value;
 #endif
 			break;
 		case WH_BLUE_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cBlueBits = hint_value;
+			pfd.cBlueBits = (BYTE)hint_value;
 #else
                 wh_blue_bits = hint_value;
 #endif
 			break;
 		case WH_ALPHA_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cAlphaBits = hint_value;
+			pfd.cAlphaBits = (BYTE)hint_value;
 #else
                 wh_alpha_bits = hint_value;
 #endif
 			break;
 		case WH_DEPTH_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cDepthBits = hint_value;
+			pfd.cDepthBits = (BYTE)hint_value;
 #else
                 wh_depth_bits = hint_value;
 #endif
 			break;
 		case WH_STENCIL_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cStencilBits = hint_value;
+			pfd.cStencilBits = (BYTE)hint_value;
 #else
                 wh_stencil_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_RED_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cAccumRedBits = hint_value;
+			pfd.cAccumRedBits = (BYTE)hint_value;
 #else
                 wh_accum_red_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_GREEN_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cAccumGreenBits = hint_value;
+			pfd.cAccumGreenBits = (BYTE)hint_value;
 #else
                 wh_accum_green_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_BLUE_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cAccumBlueBits = hint_value;
+			pfd.cAccumBlueBits = (BYTE)hint_value;
 #else
                 wh_accum_blue_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_ALPHA_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cAccumAlphaBits = hint_value;
+			pfd.cAccumAlphaBits = (BYTE)hint_value;
 #else
                 wh_accum_alpha_bits = hint_value;
 #endif
 			break;
 		case WH_AUX_BUFFERS:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.cAuxBuffers = hint_value;
+			pfd.cAuxBuffers = (BYTE)hint_value;
 #else
                 wh_aux_buffers = hint_value;
 #endif
