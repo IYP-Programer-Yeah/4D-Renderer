@@ -3,10 +3,99 @@ Created By Hosein Ghahremanzadeh 5/24/2017
 This is a simple library to access data from files.
 */
 
+/*
+*todo:
+*	1-implementaton of the rest of the hints
+*	2-handle hinstance on windows
+*
+*
+*/
+
 #define _WINDOW_HANLER_LIB_DLL_EXPORTS
 #include "WindowHandler Lib.hpp"
 namespace WindowHandler_Lib
 {
+	WindowHandler::WindowHandler() : pfd ()
+	{
+		//init pfd
+		pfd = {
+			sizeof(PIXELFORMATDESCRIPTOR),
+			1,
+			PFD_DRAW_TO_WINDOW |
+			PFD_SUPPORT_OPENGL |
+			PFD_DOUBLEBUFFER,
+			PFD_TYPE_RGBA,
+			32,
+			0, 0, 0, 0, 0, 0,
+			0,
+			1,
+			0,
+			0, 0, 0, 0,
+			32,
+			0,
+			0,
+			PFD_MAIN_PLANE,
+			0,                     
+			0, 0, 0 };
+
+		//init window class
+		wnd_class.style = CS_HREDRAW | CS_VREDRAW;
+		wnd_class.lpfnWndProc = NULL;
+		wnd_class.cbClsExtra = NULL;
+		wnd_class.cbWndExtra = NULL;
+		wnd_class.hInstance = NULL;//
+		wnd_class.hCursor = LoadCursor(NULL, IDC_ARROW); //set the cursor to arrow
+		wnd_class.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //clear the window with white
+		wnd_class.lpszMenuName = NULL;//no menu
+/*#ifndef _M_X64 //if 32bit
+		Main_Windows.WndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCEA(IDI_ICON1)); //set the icon 32bit
+#else          //if 64bit
+		Main_Windows.WndClass.hIcon = LoadIcon(hInstance, (LPCSTR)MAKEINTRESOURCEA(IDI_ICON1)); //set the icon 64bit
+#endif*/
+		
+		//init window style
+		window_style = 0;
+	}
+	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint)
+	{
+		switch (window_hint)
+		{
+		case RESIZABLE:
+			window_style = (hint) ? window_style | WS_THICKFRAME : window_style & !WS_THICKFRAME;
+			break;
+		case MAXIMIZED:
+			break;
+		case RED_BITS:
+			break;
+		case GREEN_BITS:
+			break;
+		case BLUE_BITS:
+			break;
+		case ALPHA_BITS:
+			break;
+		case DEPTH_BITS:
+			break;
+		case STENCIL_BITS:
+			break;
+		case ACCUM_RED_BITS:
+			break;
+		case ACCUM_GREEN_BITS:
+			break;
+		case ACCUM_BLUE_BITS:
+			break;
+		case ACCUM_ALPHA_BITS:
+			break;
+		case AUX_BUFFERS:
+			break;
+		case STEREO:
+			break;
+		case DOUBLEBUFFER:
+			break;
+		default:
+			break;
+		}
+	}
+
 	void WindowHandler::show_window(WindowShowMode window_show_mode)
 	{
 #if defined(_WIN32) || defined(__WIN32__)
@@ -77,7 +166,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 	void WindowHandler::set_wnd_proc(WNDPROC i_wnd_proc)
 	{
-		wnd_proc = i_wnd_proc;
+		wnd_class.lpfnWndProc = i_wnd_proc;
 	}
 #else
 
@@ -180,6 +269,7 @@ namespace WindowHandler_Lib
 		title = i_title;
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowText(hwnd, title.c_str());
+		wnd_class.lpszClassName = title.c_str();//kind safe
 #else
 		glfwSetWindowTitle(hwnd, title.c_str());
 #endif

@@ -26,11 +26,12 @@ namespace WindowHandler_Lib
         std::string title;
 #if defined(_WIN32) || defined(__WIN32__)
 		HWND hwnd;
-		WNDPROC wnd_proc;
 		PIXELFORMATDESCRIPTOR pfd;
 		WNDCLASS wnd_class;
+		DWORD window_style;
 #else
 		GLFWwindow* hwnd;
+
 #endif
 	public:
 		enum WindowShowMode//not all the values availble for all the platforms
@@ -63,6 +64,46 @@ namespace WindowHandler_Lib
 #endif
 
 		};
+		enum WindowHints
+		{
+			RESIZABLE,
+			MAXIMIZED,
+			RED_BITS,
+			GREEN_BITS,
+			BLUE_BITS,
+			ALPHA_BITS,
+			DEPTH_BITS,
+			STENCIL_BITS,
+			ACCUM_RED_BITS,
+			ACCUM_GREEN_BITS,
+			ACCUM_BLUE_BITS,
+			ACCUM_ALPHA_BITS,
+			AUX_BUFFERS,
+			STEREO,
+			DOUBLEBUFFER,
+#if defined(_WIN32) || defined(__WIN32__)
+#else
+			RESIZABLE,
+			MAXIMIZED,
+			RED_BITS,
+			GREEN_BITS,
+			BLUE_BITS,
+			ALPHA_BITS,
+			DEPTH_BITS,
+			STENCIL_BITS,
+			ACCUM_RED_BITS,
+			ACCUM_GREEN_BITS,
+			ACCUM_BLUE_BITS,
+			ACCUM_ALPHA_BITS,
+			AUX_BUFFERS,
+			STEREO,
+			DOUBLEBUFFER,
+			CLIENT_API,
+			CONTEXT_CREATION_API
+#endif
+		};
+		_WINDOW_HANLER_LIB_DLL_EXPORT WindowHandler();
+		_WINDOW_HANLER_LIB_DLL_EXPORT void hint_window(WindowHints window_hint, std::uint64_t hint);
 		_WINDOW_HANLER_LIB_DLL_EXPORT void create_window(int x, int y, int w, int h, std::string name);//create the window
 		_WINDOW_HANLER_LIB_DLL_EXPORT void show_window(WindowShowMode window_show_mode);//show the window, behavior differes between windows and the rest of the platforms
 		_WINDOW_HANLER_LIB_DLL_EXPORT void close_window();//close the windows
