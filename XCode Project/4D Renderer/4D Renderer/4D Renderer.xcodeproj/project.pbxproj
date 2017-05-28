@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BB500F851ED41FFC004F08DE /* libFS Lib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB500F841ED41FFC004F08DE /* libFS Lib.dylib */; };
 		BB58E0C41ED2EA4000C50950 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB58E0C31ED2EA4000C50950 /* Main.cpp */; };
+		BB98F4F91EDAEA690013D037 /* libWindowHandler Lib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F81EDAEA690013D037 /* libWindowHandler Lib.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		BB500F841ED41FFC004F08DE /* libFS Lib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libFS Lib.dylib"; path = "../../../Lib/Debug/x64/libFS Lib.dylib"; sourceTree = "<group>"; };
 		BB58E0C21ED2EA4000C50950 /* Defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defs.h; path = "../../../../Source/4D Renderer/Defs.h"; sourceTree = "<group>"; };
 		BB58E0C31ED2EA4000C50950 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = "../../../../Source/4D Renderer/Main.cpp"; sourceTree = "<group>"; };
+		BB98F4F81EDAEA690013D037 /* libWindowHandler Lib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libWindowHandler Lib.dylib"; path = "../../../Lib/Debug/x64/libWindowHandler Lib.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB98F4F91EDAEA690013D037 /* libWindowHandler Lib.dylib in Frameworks */,
 				BB500F851ED41FFC004F08DE /* libFS Lib.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +74,7 @@
 		BB972A451ED2F2D2000D2AAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB98F4F81EDAEA690013D037 /* libWindowHandler Lib.dylib */,
 				BB500F841ED41FFC004F08DE /* libFS Lib.dylib */,
 			);
 			name = Frameworks;
