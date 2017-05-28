@@ -7,7 +7,7 @@ This is a simple library to access data from files.
 *todo:
 *	1-implementaton of the rest of the hints
 *	2-handle hinstance on windows
-*
+*	3-get attribute
 *
 */
 
@@ -15,6 +15,17 @@ This is a simple library to access data from files.
 #include "WindowHandler Lib.hpp"
 namespace WindowHandler_Lib
 {
+
+	void WindowHandler::set_title_value(std::string i_title)
+	{
+		title = i_title;
+#if defined(_WIN32) || defined(__WIN32__)
+		wnd_class.lpszClassName = title.c_str();//kind safe
+#endif
+	}
+
+
+
 	WindowHandler::WindowHandler() : pfd ()
 	{
 		//init pfd
@@ -56,44 +67,70 @@ namespace WindowHandler_Lib
 		//init window style
 		window_style = 0;
 	}
-	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint)
+	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint_value)
 	{
+#if defined(_WIN32) || defined(__WIN32__)
 		switch (window_hint)
 		{
 		case RESIZABLE:
-			window_style = (hint) ? window_style | WS_THICKFRAME : window_style & !WS_THICKFRAME;
+			window_style = (hint_value) ? (window_style | WS_THICKFRAME) : (window_style & !WS_THICKFRAME);
+			break;
+		case MINIMIZED:
+			window_style = (hint_value) ? (window_style | WS_MINIMIZE) : (window_style & !WS_MINIMIZE);
 			break;
 		case MAXIMIZED:
+			window_style = (hint_value) ? (window_style | WS_MAXIMIZE) : (window_style & !WS_MAXIMIZE);
 			break;
 		case RED_BITS:
+			pfd.cRedBits = hint_value;
 			break;
 		case GREEN_BITS:
+			pfd.cGreenBits = hint_value;
 			break;
 		case BLUE_BITS:
+			pfd.cBlueBits = hint_value;
 			break;
 		case ALPHA_BITS:
+			pfd.cAlphaBits = hint_value;
 			break;
 		case DEPTH_BITS:
+			pfd.cDepthBits = hint_value;
 			break;
 		case STENCIL_BITS:
+			pfd.cStencilBits = hint_value;
 			break;
 		case ACCUM_RED_BITS:
+			pfd.cAccumRedBits = hint_value;
 			break;
 		case ACCUM_GREEN_BITS:
+			pfd.cAccumGreenBits = hint_value;
 			break;
 		case ACCUM_BLUE_BITS:
+			pfd.cAccumBlueBits = hint_value;
 			break;
 		case ACCUM_ALPHA_BITS:
+			pfd.cAccumAlphaBits = hint_value;
 			break;
 		case AUX_BUFFERS:
+			pfd.cAuxBuffers = hint_value;
 			break;
 		case STEREO:
+			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO): ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
 			break;
 		case DOUBLEBUFFER:
+			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_DOUBLEBUFFER_DONTCARE) | PFD_DOUBLEBUFFER) : ((pfd.dwFlags & !PFD_DOUBLEBUFFER) | PFD_DOUBLEBUFFER_DONTCARE)) : (pfd.dwFlags & !(PFD_DOUBLEBUFFER | PFD_DOUBLEBUFFER_DONTCARE));//mutually exclusive
 			break;
 		default:
 			break;
 		}
+#else
+		glfwWindowHint(window_hint, hint_value);
+#endif
+	}
+
+	void WindowHandler::create_window(int x, int y, int w, int h, std::string i_title)
+	{
+		
 	}
 
 	void WindowHandler::show_window(WindowShowMode window_show_mode)
@@ -266,10 +303,9 @@ namespace WindowHandler_Lib
 
 	void WindowHandler::set_title(std::string i_title)
 	{
-		title = i_title;
+		set_title_value(i_title);
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowText(hwnd, title.c_str());
-		wnd_class.lpszClassName = title.c_str();//kind safe
 #else
 		glfwSetWindowTitle(hwnd, title.c_str());
 #endif
