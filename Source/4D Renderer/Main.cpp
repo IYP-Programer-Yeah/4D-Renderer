@@ -3,10 +3,13 @@
 #include "Defs.h"
 #include <iostream>
 
+#if defined(_WIN32) || defined(__WIN32__)
+INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+#else
 int main()
+#endif
 {
     WindowHandler_Lib::WindowHandler wh;
-	//wh.hint_window(WindowHandler_Lib::WindowHandler::WH_RESIZABLE, WindowHandler_Lib::WindowHandler::HFalse);
 	bool window_created = wh.create_window(0, 0, 500, 500, std::string("hello"));
     wh.show_window(WindowHandler_Lib::WindowHandler::SM_SHOWNA);
 	while (window_created)

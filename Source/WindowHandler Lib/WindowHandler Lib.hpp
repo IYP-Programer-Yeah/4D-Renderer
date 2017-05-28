@@ -1,6 +1,6 @@
 /*
 Created By Hosein Ghahremanzadeh 5/24/2017
-This is a simple library to access data from files.
+A cross platform window creation lib.
 */
 
 #ifndef _WINDOW_HANLER_LIB_
@@ -87,8 +87,12 @@ namespace WindowHandler_Lib
 		enum WindowHints
 		{
 #if defined(_WIN32) || defined(__WIN32__)
-			WH_RESIZABLE,
 			WH_MINIMIZED,
+#else
+			WH_CLIENT_API,
+			WH_CONTEXT_CREATION_API,
+#endif
+			WH_RESIZABLE,
 			WH_MAXIMIZED,
 			WH_RED_BITS,
 			WH_GREEN_BITS,
@@ -103,25 +107,6 @@ namespace WindowHandler_Lib
 			WH_AUX_BUFFERS,
 			WH_STEREO,
 			WH_DOUBLEBUFFER,
-#else
-			WH_RESIZABLE = GLFW_RESIZABLE,
-			WH_MAXIMIZED = GLFW_MAXIMIZED,
-			WH_RED_BITS = GLFW_RED_BITS,
-			WH_GREEN_BITS = GLFW_GREEN_BITS,
-			WH_BLUE_BITS = GLFW_BLUE_BITS,
-			WH_ALPHA_BITS = GLFW_ALPHA_BITS,
-			WH_DEPTH_BITS = GLFW_DEPTH_BITS,
-			WH_STENCIL_BITS = GLFW_STENCIL_BITS,
-			WH_ACCUM_RED_BITS = GLFW_ACCUM_RED_BITS,
-			WH_ACCUM_GREEN_BITS = GLFW_ACCUM_GREEN_BITS,
-			WH_ACCUM_BLUE_BITS = GLFW_ACCUM_BLUE_BITS,
-			WH_ACCUM_ALPHA_BITS = GLFW_ACCUM_ALPHA_BITS,
-			WH_AUX_BUFFERS = GLFW_AUX_BUFFERS,
-			WH_STEREO = GLFW_STEREO,
-			WH_DOUBLEBUFFER = GLFW_DOUBLEBUFFER,
-			WH_CLIENT_API = GLFW_CLIENT_API,
-			WH_CONTEXT_CREATION_API = GLFW_CONTEXT_CREATION_API
-#endif
 		};
 
 		enum HintValues
@@ -132,23 +117,23 @@ namespace WindowHandler_Lib
 		};
 
 		_WINDOW_HANLER_LIB_DLL_EXPORT WindowHandler();
-		_WINDOW_HANLER_LIB_DLL_EXPORT void hint_window(WindowHints window_hint, std::uint64_t hint_value);
+		_WINDOW_HANLER_LIB_DLL_EXPORT void hint_window(WindowHints window_hint, std::uint64_t hint_value);//hint attributes including pixel formats
 		_WINDOW_HANLER_LIB_DLL_EXPORT bool create_window(int x, int y, int w, int h, std::string i_title);//create the window
-		_WINDOW_HANLER_LIB_DLL_EXPORT void show_window(WindowShowMode window_show_mode);//show the window, behavior differes between windows and the rest of the platforms
-		_WINDOW_HANLER_LIB_DLL_EXPORT void close_window();//close the windows
-		_WINDOW_HANLER_LIB_DLL_EXPORT WindowHandle get_handle();//gets a handle to windows
-		_WINDOW_HANLER_LIB_DLL_EXPORT int get_width();
-		_WINDOW_HANLER_LIB_DLL_EXPORT int get_height();
-		_WINDOW_HANLER_LIB_DLL_EXPORT int get_location_x();
-		_WINDOW_HANLER_LIB_DLL_EXPORT int get_location_y();
-		_WINDOW_HANLER_LIB_DLL_EXPORT std::string get_title();
-		_WINDOW_HANLER_LIB_DLL_EXPORT void set_width(int width);//only accessable after window creation
-		_WINDOW_HANLER_LIB_DLL_EXPORT void set_height(int height);//only accessable after window creation
-		_WINDOW_HANLER_LIB_DLL_EXPORT void set_location_x(int x);//only accessable after window creation
-		_WINDOW_HANLER_LIB_DLL_EXPORT void set_location_y(int y);//only accessable after window creation
-		_WINDOW_HANLER_LIB_DLL_EXPORT void set_title(std::string i_title);//only accessable after window creation
-		_WINDOW_HANLER_LIB_DLL_EXPORT void peek_event();
-		_WINDOW_HANLER_LIB_DLL_EXPORT void get_event();
+		_WINDOW_HANLER_LIB_DLL_EXPORT void show_window(WindowShowMode window_show_mode);//show the window, behavior differes between Windows and the rest of the platforms
+		_WINDOW_HANLER_LIB_DLL_EXPORT void close_window();//close the window
+		_WINDOW_HANLER_LIB_DLL_EXPORT WindowHandle get_handle();//gets a handle to window, applys pixel format on Windows
+		_WINDOW_HANLER_LIB_DLL_EXPORT int get_width();//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT int get_height();//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT int get_location_x();//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT int get_location_y();//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT std::string get_title();//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void set_width(int width);//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void set_height(int height);//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void set_location_x(int x);//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void set_location_y(int y);//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void set_title(std::string i_title);//only accessible after window creation
+		_WINDOW_HANLER_LIB_DLL_EXPORT void peek_event();//doesnt wait for the event
+		_WINDOW_HANLER_LIB_DLL_EXPORT void get_event();//waits for the event
 
 #if defined(_WIN32) || defined(__WIN32__)
 		_WINDOW_HANLER_LIB_DLL_EXPORT void set_wnd_proc(WNDPROC wnd);//single wnd proc on windows

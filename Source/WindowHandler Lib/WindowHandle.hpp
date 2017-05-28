@@ -1,6 +1,6 @@
 /*
 Created By Hosein Ghahremanzadeh 5/24/2017
-This is a simple library to access data from files.
+A cross platform window creation lib.
 */
 
 #ifndef _WINDOW_HANLE_
@@ -22,13 +22,14 @@ namespace WindowHandler_Lib
 		GLFWwindow* hwnd;
 #endif
 	public:
+		WindowHandle
 #if defined(_WIN32) || defined(__WIN32__)
-		WindowHandle(HWND i_hwnd)
+		(HDC i_hdc)
 		{
-			hdc = GetDC(i_hwnd);
+			hdc = i_hdc;
 		}
 #else
-		WindowHandle(GLFWwindow* i_hwnd)
+		(GLFWwindow* i_hwnd)
 		{
 			hwnd = i_hwnd;
 		}

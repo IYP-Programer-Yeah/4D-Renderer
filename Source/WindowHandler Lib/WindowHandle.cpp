@@ -1,6 +1,6 @@
 /*
 Created By Hosein Ghahremanzadeh 5/24/2017
-This is a simple library to access data from files.
+A cross platform window creation lib.
 */
 
 #include "WindowHandle.hpp"

@@ -1,6 +1,6 @@
 /*
 Created By Hosein Ghahremanzadeh 5/24/2017
-This is a simple library to access data from files.
+A cross platform window creation lib.
 */
 
 /*
@@ -343,7 +343,17 @@ namespace WindowHandler_Lib
 
 	WindowHandle WindowHandler::get_handle()
 	{
-		return WindowHandle(hwnd);
+#if defined(_WIN32) || defined(__WIN32__)
+		HDC hdc = GetDC(hwnd);
+		int current_pf = GetPixelFormat(hdc);
+		int pf = ChoosePixelFormat(hdc, &pfd); //layer masks ignored
+		if (pf != current_pf)
+			SetPixelFormat(hdc, current_pf, &pfd);
+		WindowHandle window_handle(hdc);
+#else
+		WindowHandle window_handle(hwnd);
+#endif
+		return window_handle;
 	}
 
 #if defined(_WIN32) || defined(__WIN32__)
@@ -470,6 +480,7 @@ namespace WindowHandler_Lib
 		glfwPollEvents();
 #endif
 	}
+
 	void WindowHandler::get_event()
 	{
 #if defined(_WIN32) || defined(__WIN32__)
