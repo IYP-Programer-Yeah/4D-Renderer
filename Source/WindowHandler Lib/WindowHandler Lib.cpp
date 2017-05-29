@@ -24,7 +24,6 @@ namespace WindowHandler_Lib
 
 #if defined(_WIN32) || defined(__WIN32__)
 	static const DWORD gdi_show_mode_map[] = { SW_MINIMIZE, SW_MAXIMIZE, SW_HIDE, SW_RESTORE, SW_SHOW, SW_SHOWDEFAULT, SW_SHOWMAXIMIZED, SW_SHOWMINIMIZED, SW_SHOWMINNOACTIVE, SW_SHOWNA, SW_SHOWNOACTIVATE, SW_SHOWNORMAL };
-	static_assert(gdi_show_mode_map[SM_MINIMIZED] == SW_MINIMIZE);
 #endif
 
 
