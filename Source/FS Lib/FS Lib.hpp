@@ -13,7 +13,7 @@ This is a simple library to access data from files.
 		#define FS_LIB_DLL_EXPORT __declspec(dllimport)
 	#endif
 #else
-	#define _FS_LIB_DLL_EXPORT
+	#define FS_LIB_DLL_EXPORT
 #endif
 
 #include <vector>

@@ -17,7 +17,9 @@ A cross platform window creation lib.
 #endif
 
 #include <string>
+#if defined(_WIN32) || defined(__WIN32__)
 #include <Windows.h>//this should soon be removed
+#endif
 #include "WindowHandle.hpp"
 
 namespace WindowHandler_Lib
