@@ -1,5 +1,5 @@
 #include "../FS Lib/FS Lib.hpp"
-#include "../WindowHandler Lib/WindowHandler Lib.hpp"
+#include "../WindowHandler Lib/IWindowHandler Lib.hpp"
 #include "Defs.h"
 #include <iostream>
 
@@ -9,12 +9,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 int main()
 #endif
 {
-    WindowHandler_Lib::WindowHandler wh;
-	bool window_created = wh.create_window(0, 0, 500, 500, std::string("hello"));
-    wh.show_window(WindowHandler_Lib::WindowHandler::SM_SHOWNA);
+    WindowHandler_Lib::IWindowHandler *wh = WindowHandler_Lib::creat_window_handler();
+	bool window_created = wh->create_window(0, 0, 500, 500, std::string("hello"));
+    wh->show_window(WindowHandler_Lib::IWindowHandler::SM_SHOWNA);
 	while (window_created)
 	{
-		wh.get_event();
+		wh->get_event();
 		std::cout << "hello\n";
 	}
 	return 0;

@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\WindowHandler Lib\IWindowHandler Lib.hpp" />
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\WindowHandle.hpp" />
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\WindowHandler Lib.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\WindowHandler Lib\IWindowHandler Lib.cpp" />
     <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandle.cpp" />
     <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandler Lib.cpp" />
   </ItemGroup>

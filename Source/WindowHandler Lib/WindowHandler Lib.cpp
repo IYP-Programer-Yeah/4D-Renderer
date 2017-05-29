@@ -10,11 +10,24 @@ A cross platform window creation lib.
 *	3-get attribute
 *	4-window creation for windows can be enhanced to support parent window
 */
-
-#define _WINDOW_HANLER_LIB_DLL_EXPORTS
+#include <string>
+#if defined(_WIN32) || defined(__WIN32__)
+#include <Windows.h>
+#else
+#include "../../Includes/GLFW/glfw3.h"
+#endif
+#include "WindowHandle.hpp"
 #include "WindowHandler Lib.hpp"
+
 namespace WindowHandler_Lib
 {
+
+#if defined(_WIN32) || defined(__WIN32__)
+	static const DWORD gdi_show_mode_map[] = { SW_MINIMIZE, SW_MAXIMIZE, SW_HIDE, SW_RESTORE, SW_SHOW, SW_SHOWDEFAULT, SW_SHOWMAXIMIZED, SW_SHOWMINIMIZED, SW_SHOWMINNOACTIVE, SW_SHOWNA, SW_SHOWNOACTIVATE, SW_SHOWNORMAL };
+	static_assert(gdi_show_mode_map[SM_MINIMIZED] == SW_MINIMIZE);
+#endif
+
+
 #if defined(_WIN32) || defined(__WIN32__)
 	LRESULT CALLBACK default_wnd_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 	{
@@ -93,23 +106,23 @@ namespace WindowHandler_Lib
 		//init window style
 		wnd_style = WS_OVERLAPPEDWINDOW;
 #else
-		wh_resizable = GLFW_TRUE;
-		wh_maximized = GLFW_FALSE;
-		wh_red_bits = 8;
-		wh_green_bits = 8;
-		wh_blue_bits = 8;
-		wh_alpha_bits = 8;
-		wh_depth_bits = 24;
-		wh_stencil_bits = 8;
-		wh_accum_red_bits = 0;
-		wh_accum_green_bits = 0;
-		wh_accum_blue_bits = 0;
-		wh_accum_alpha_bits = 0;
-		wh_aux_buffers = 0;
-		wh_stereo = GLFW_FALSE;
-		wh_doublebuffer = GLFW_TRUE;
-		wh_client_api = GLFW_OPENGL_API;
-		wh_context_creation_api = GLFW_NATIVE_CONTEXT_API;
+		glfw_hints.wh_resizable = GLFW_TRUE;
+		glfw_hints.wh_maximized = GLFW_FALSE;
+		glfw_hints.wh_red_bits = 8;
+		glfw_hints.wh_green_bits = 8;
+		glfw_hints.wh_blue_bits = 8;
+		glfw_hints.wh_alpha_bits = 8;
+		glfw_hints.wh_depth_bits = 24;
+		glfw_hints.wh_stencil_bits = 8;
+		glfw_hints.wh_accum_red_bits = 0;
+		glfw_hints.wh_accum_green_bits = 0;
+		glfw_hints.wh_accum_blue_bits = 0;
+		glfw_hints.wh_accum_alpha_bits = 0;
+		glfw_hints.wh_aux_buffers = 0;
+		glfw_hints.wh_stereo = GLFW_FALSE;
+		glfw_hints.wh_doublebuffer = GLFW_TRUE;
+		glfw_hints.wh_client_api = GLFW_OPENGL_API;
+		glfw_hints.wh_context_creation_api = GLFW_NATIVE_CONTEXT_API;
 #endif
 	}
 
@@ -126,114 +139,125 @@ namespace WindowHandler_Lib
 	{
 		switch (window_hint)
 		{
+		case WH_CLIENT_API:
+#if defined(_WIN32) || defined(__WIN32__)
+#else
+#endif
+			break;
+		case WH_CONTEXT_CREATION_API:
+#if defined(_WIN32) || defined(__WIN32__)
+#else
+#endif
+			break;
 		case WH_RESIZABLE:
 #if defined(_WIN32) || defined(__WIN32__)
 			wnd_style = (hint_value) ? (wnd_style | WS_THICKFRAME) : (wnd_style & !WS_THICKFRAME);
 #else
-			wh_resizable = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_resizable = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
-#if defined(_WIN32) || defined(__WIN32__)
 		case WH_MINIMIZED:
+#if defined(_WIN32) || defined(__WIN32__)
 			wnd_style = (hint_value) ? (wnd_style | WS_MINIMIZE) : (wnd_style & !WS_MINIMIZE);
-			break;
+#else
 #endif
+			break;
 		case WH_MAXIMIZED:
 #if defined(_WIN32) || defined(__WIN32__)
 			wnd_style = (hint_value) ? (wnd_style | WS_MAXIMIZE) : (wnd_style & !WS_MAXIMIZE);
 #else
-                wh_maximized = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_maximized = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		case WH_RED_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cRedBits = (BYTE)hint_value;
 #else
-                wh_red_bits = hint_value;
+			glfw_hints.wh_red_bits = hint_value;
 #endif
 			break;
 		case WH_GREEN_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cGreenBits = (BYTE)hint_value;
 #else
-                wh_green_bits = hint_value;
+			glfw_hints.wh_green_bits = hint_value;
 #endif
 			break;
 		case WH_BLUE_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cBlueBits = (BYTE)hint_value;
 #else
-                wh_blue_bits = hint_value;
+			glfw_hints.wh_blue_bits = hint_value;
 #endif
 			break;
 		case WH_ALPHA_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAlphaBits = (BYTE)hint_value;
 #else
-                wh_alpha_bits = hint_value;
+			glfw_hints.wh_alpha_bits = hint_value;
 #endif
 			break;
 		case WH_DEPTH_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cDepthBits = (BYTE)hint_value;
 #else
-                wh_depth_bits = hint_value;
+			glfw_hints.wh_depth_bits = hint_value;
 #endif
 			break;
 		case WH_STENCIL_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cStencilBits = (BYTE)hint_value;
 #else
-                wh_stencil_bits = hint_value;
+			glfw_hints.wh_stencil_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_RED_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumRedBits = (BYTE)hint_value;
 #else
-                wh_accum_red_bits = hint_value;
+			glfw_hints.wh_accum_red_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_GREEN_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumGreenBits = (BYTE)hint_value;
 #else
-                wh_accum_green_bits = hint_value;
+			glfw_hints.wh_accum_green_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_BLUE_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumBlueBits = (BYTE)hint_value;
 #else
-                wh_accum_blue_bits = hint_value;
+			glfw_hints.wh_accum_blue_bits = hint_value;
 #endif
 			break;
 		case WH_ACCUM_ALPHA_BITS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAccumAlphaBits = (BYTE)hint_value;
 #else
-                wh_accum_alpha_bits = hint_value;
+			glfw_hints.wh_accum_alpha_bits = hint_value;
 #endif
 			break;
 		case WH_AUX_BUFFERS:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.cAuxBuffers = (BYTE)hint_value;
 #else
-                wh_aux_buffers = hint_value;
+			glfw_hints.wh_aux_buffers = hint_value;
 #endif
 			break;
 		case WH_STEREO:
 #if defined(_WIN32) || defined(__WIN32__)
-			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO): ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
+			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO) : ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
 #else
-                wh_stereo = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_stereo = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		case WH_DOUBLEBUFFER:
 #if defined(_WIN32) || defined(__WIN32__)
 			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_DOUBLEBUFFER_DONTCARE) | PFD_DOUBLEBUFFER) : ((pfd.dwFlags & !PFD_DOUBLEBUFFER) | PFD_DOUBLEBUFFER_DONTCARE)) : (pfd.dwFlags & !(PFD_DOUBLEBUFFER | PFD_DOUBLEBUFFER_DONTCARE));//mutually exclusive
 #else
-                wh_doublebuffer = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_doublebuffer = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		default:
@@ -248,32 +272,32 @@ namespace WindowHandler_Lib
 		RegisterClass(&wnd_class);
 		hwnd = CreateWindow(i_title.c_str(), i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, NULL);
 #else
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, wh_resizable);
-        glfwWindowHint(GLFW_MAXIMIZED, wh_maximized);
-        glfwWindowHint(GLFW_RED_BITS, wh_red_bits);
-        glfwWindowHint(GLFW_GREEN_BITS, wh_green_bits);
-        glfwWindowHint(GLFW_BLUE_BITS, wh_blue_bits);
-        glfwWindowHint(GLFW_ALPHA_BITS, wh_alpha_bits);
-        glfwWindowHint(GLFW_DEPTH_BITS, wh_depth_bits);
-        glfwWindowHint(GLFW_STENCIL_BITS, wh_stencil_bits);
-        glfwWindowHint(GLFW_ACCUM_RED_BITS, wh_accum_red_bits);
-        glfwWindowHint(GLFW_ACCUM_GREEN_BITS, wh_accum_green_bits);
-        glfwWindowHint(GLFW_ACCUM_BLUE_BITS, wh_accum_blue_bits);
-        glfwWindowHint(GLFW_ACCUM_ALPHA_BITS, wh_accum_alpha_bits);
-        glfwWindowHint(GLFW_AUX_BUFFERS, wh_aux_buffers);
-        glfwWindowHint(GLFW_STEREO, wh_stereo);
-        glfwWindowHint(GLFW_DOUBLEBUFFER, wh_doublebuffer);
-        glfwWindowHint(GLFW_CLIENT_API, wh_client_api);
-        glfwWindowHint(GLFW_CONTEXT_CREATION_API, wh_context_creation_api);
-        hwnd = glfwCreateWindow(w, h, i_title.c_str(), NULL, NULL);
+		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		glfwWindowHint(GLFW_RESIZABLE, glfw_hints.wh_resizable);
+		glfwWindowHint(GLFW_MAXIMIZED, glfw_hints.wh_maximized);
+		glfwWindowHint(GLFW_RED_BITS, glfw_hints.wh_red_bits);
+		glfwWindowHint(GLFW_GREEN_BITS, glfw_hints.wh_green_bits);
+		glfwWindowHint(GLFW_BLUE_BITS, glfw_hints.wh_blue_bits);
+		glfwWindowHint(GLFW_ALPHA_BITS, glfw_hints.wh_alpha_bits);
+		glfwWindowHint(GLFW_DEPTH_BITS, glfw_hints.wh_depth_bits);
+		glfwWindowHint(GLFW_STENCIL_BITS, glfw_hints.wh_stencil_bits);
+		glfwWindowHint(GLFW_ACCUM_RED_BITS, glfw_hints.wh_accum_red_bits);
+		glfwWindowHint(GLFW_ACCUM_GREEN_BITS, glfw_hints.wh_accum_green_bits);
+		glfwWindowHint(GLFW_ACCUM_BLUE_BITS, glfw_hints.wh_accum_blue_bits);
+		glfwWindowHint(GLFW_ACCUM_ALPHA_BITS, glfw_hints.wh_accum_alpha_bits);
+		glfwWindowHint(GLFW_AUX_BUFFERS, glfw_hints.wh_aux_buffers);
+		glfwWindowHint(GLFW_STEREO, glfw_hints.wh_stereo);
+		glfwWindowHint(GLFW_DOUBLEBUFFER, glfw_hints.wh_doublebuffer);
+		glfwWindowHint(GLFW_CLIENT_API, glfw_hints.wh_client_api);
+		glfwWindowHint(GLFW_CONTEXT_CREATION_API, glfw_hints.wh_context_creation_api);
+		hwnd = glfwCreateWindow(w, h, i_title.c_str(), NULL, NULL);
 #endif
 		if (hwnd == NULL)
 			return false;
 #if defined(_WIN32) || defined(__WIN32__)
 #else
-        set_location_x(x);
-        set_location_y(y);
+		set_location_x(x);
+		set_location_y(y);
 #endif
 		return true;
 	}
@@ -281,12 +305,12 @@ namespace WindowHandler_Lib
 	void WindowHandler::show_window(WindowShowMode window_show_mode)
 	{
 #if defined(_WIN32) || defined(__WIN32__)
-		ShowWindow(hwnd, window_show_mode);
+		ShowWindow(hwnd, gdi_show_mode_map[window_show_mode]);
 #else
 		switch (window_show_mode)
 		{
 		case SM_MAXIMIZED:
-            glfwMaximizeWindow(hwnd);
+			glfwMaximizeWindow(hwnd);
 			break;
 		case SM_MINIMIZED:
 			glfwIconifyWindow(hwnd);
@@ -349,9 +373,9 @@ namespace WindowHandler_Lib
 		int pf = ChoosePixelFormat(hdc, &pfd); //layer masks ignored
 		if (pf != current_pf)
 			SetPixelFormat(hdc, current_pf, &pfd);
-		WindowHandle window_handle(hdc);
+		WindowHandle window_handle(&hdc);
 #else
-		WindowHandle window_handle(hwnd);
+		WindowHandle window_handle(&hwnd);
 #endif
 		return window_handle;
 	}

@@ -3,7 +3,7 @@ Created By Hosein Ghahremanzadeh 5/9/2017
 This is a simple library to access data from files.
 */
 
-#define _FS_LIB_DLL_EXPORTS
+#define FS_LIB_DLL_EXPORTS
 #include "FS Lib.hpp"
 #include <stdexcept>
 #include <fstream>
