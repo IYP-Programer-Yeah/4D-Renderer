@@ -18,15 +18,9 @@
     <ClCompile Include="..\..\..\Source\FS Lib\FS Lib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\FS Lib\IFS Lib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\FS Lib\FS Lib.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\FS Lib\IFS Lib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

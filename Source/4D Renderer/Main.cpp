@@ -4,6 +4,7 @@
 #include <iostream>
 
 #if defined(_WIN32) || defined(__WIN32__)
+#include <Windows.h>
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 #else
 int main()

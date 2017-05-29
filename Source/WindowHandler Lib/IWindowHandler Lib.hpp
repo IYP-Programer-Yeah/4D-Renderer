@@ -1,5 +1,5 @@
 /*
-Created By Hosein Ghahremanzadeh 5/24/2017
+Created By Hosein Ghahremanzadeh 5/29/2017
 A cross platform window creation lib.
 */
 
@@ -17,6 +17,7 @@ A cross platform window creation lib.
 #endif
 
 #include <string>
+#include <Windows.h>//this should soon be removed
 #include "WindowHandle.hpp"
 
 namespace WindowHandler_Lib
