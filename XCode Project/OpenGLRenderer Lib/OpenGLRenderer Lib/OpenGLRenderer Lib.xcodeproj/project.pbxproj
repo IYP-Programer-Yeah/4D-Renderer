@@ -12,6 +12,8 @@
 		BBDB74E41EDD5980002B22F0 /* OpenGLRenderer Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDB74E01EDD5980002B22F0 /* OpenGLRenderer Lib.cpp */; };
 		BBDB74E51EDD5980002B22F0 /* OpenGLRenderer Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBDB74E11EDD5980002B22F0 /* OpenGLRenderer Lib.hpp */; };
 		BBDB74EA1EDD60E5002B22F0 /* libWindowHandler Lib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB74E91EDD60E5002B22F0 /* libWindowHandler Lib.dylib */; };
+		BBDB74ED1EDD6430002B22F0 /* WindowContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDB74EB1EDD6430002B22F0 /* WindowContext.cpp */; };
+		BBDB74EE1EDD6430002B22F0 /* WindowContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBDB74EC1EDD6430002B22F0 /* WindowContext.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		BBDB74E01EDD5980002B22F0 /* OpenGLRenderer Lib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "OpenGLRenderer Lib.cpp"; path = "../../../Source/OpenGL Renderer Lib/OpenGLRenderer Lib.cpp"; sourceTree = "<group>"; };
 		BBDB74E11EDD5980002B22F0 /* OpenGLRenderer Lib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "OpenGLRenderer Lib.hpp"; path = "../../../Source/OpenGL Renderer Lib/OpenGLRenderer Lib.hpp"; sourceTree = "<group>"; };
 		BBDB74E91EDD60E5002B22F0 /* libWindowHandler Lib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libWindowHandler Lib.dylib"; path = "../../../Lib/Debug/x64/libWindowHandler Lib.dylib"; sourceTree = "<group>"; };
+		BBDB74EB1EDD6430002B22F0 /* WindowContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WindowContext.cpp; path = "../../../Source/OpenGL Renderer Lib/WindowContext.cpp"; sourceTree = "<group>"; };
+		BBDB74EC1EDD6430002B22F0 /* WindowContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WindowContext.hpp; path = "../../../Source/OpenGL Renderer Lib/WindowContext.hpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 		BBDB74DD1EDD565C002B22F0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BBDB74EB1EDD6430002B22F0 /* WindowContext.cpp */,
+				BBDB74EC1EDD6430002B22F0 /* WindowContext.hpp */,
 				BBDB74DE1EDD5980002B22F0 /* IOpenGLRenderer Lib.cpp */,
 				BBDB74DF1EDD5980002B22F0 /* IOpenGLRenderer Lib.hpp */,
 				BBDB74E01EDD5980002B22F0 /* OpenGLRenderer Lib.cpp */,
@@ -80,6 +86,7 @@
 			files = (
 				BBDB74E31EDD5980002B22F0 /* IOpenGLRenderer Lib.hpp in Headers */,
 				BBDB74E51EDD5980002B22F0 /* OpenGLRenderer Lib.hpp in Headers */,
+				BBDB74EE1EDD6430002B22F0 /* WindowContext.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +150,7 @@
 			files = (
 				BBDB74E41EDD5980002B22F0 /* OpenGLRenderer Lib.cpp in Sources */,
 				BBDB74E21EDD5980002B22F0 /* IOpenGLRenderer Lib.cpp in Sources */,
+				BBDB74ED1EDD6430002B22F0 /* WindowContext.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

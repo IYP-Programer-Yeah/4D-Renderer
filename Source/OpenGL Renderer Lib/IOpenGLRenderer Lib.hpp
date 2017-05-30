@@ -16,8 +16,12 @@
     #define IOPENGL_RENDERER_LIB_DLL_EXPORT
 #endif
 
-namespace OpenGLRenderer_Lib {
-    
+namespace OpenGLRenderer_Lib
+{
+    class OpenGLRenderer
+    {
+        
+    };
 }
 
 #endif
