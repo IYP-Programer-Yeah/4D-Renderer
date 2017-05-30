@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BB3AB7981EDC117400BF299A /* IWindowHandler Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB7961EDC117400BF299A /* IWindowHandler Lib.cpp */; };
 		BB3AB7991EDC117400BF299A /* IWindowHandler Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB3AB7971EDC117400BF299A /* IWindowHandler Lib.hpp */; };
+		BB4C216E1EDDB01900F65869 /* Defs.h in Headers */ = {isa = PBXBuildFile; fileRef = BB4C216D1EDDB01900F65869 /* Defs.h */; };
 		BB6DC2431ED9BA68008FAD2C /* WindowHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6DC23F1ED9BA68008FAD2C /* WindowHandle.cpp */; };
 		BB6DC2441ED9BA68008FAD2C /* WindowHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */; };
 		BB6DC2451ED9BA68008FAD2C /* WindowHandler Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		BB3AB7961EDC117400BF299A /* IWindowHandler Lib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "IWindowHandler Lib.cpp"; path = "../../../Source/WindowHandler Lib/IWindowHandler Lib.cpp"; sourceTree = "<group>"; };
 		BB3AB7971EDC117400BF299A /* IWindowHandler Lib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "IWindowHandler Lib.hpp"; path = "../../../Source/WindowHandler Lib/IWindowHandler Lib.hpp"; sourceTree = "<group>"; };
+		BB4C216D1EDDB01900F65869 /* Defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defs.h; path = "../../../Source/WindowHandler Lib/Defs.h"; sourceTree = "<group>"; };
 		BB6DC2371ED9BA46008FAD2C /* libWindowHandler Lib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libWindowHandler Lib.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6DC23F1ED9BA68008FAD2C /* WindowHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WindowHandle.cpp; path = "../../../Source/WindowHandler Lib/WindowHandle.cpp"; sourceTree = "<group>"; };
 		BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WindowHandle.hpp; path = "../../../Source/WindowHandler Lib/WindowHandle.hpp"; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		BB6DC23E1ED9BA50008FAD2C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BB4C216D1EDDB01900F65869 /* Defs.h */,
 				BB3AB7961EDC117400BF299A /* IWindowHandler Lib.cpp */,
 				BB3AB7971EDC117400BF299A /* IWindowHandler Lib.hpp */,
 				BB6DC23F1ED9BA68008FAD2C /* WindowHandle.cpp */,
@@ -88,6 +91,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB4C216E1EDDB01900F65869 /* Defs.h in Headers */,
 				BB6DC2461ED9BA68008FAD2C /* WindowHandler Lib.hpp in Headers */,
 				BB3AB7991EDC117400BF299A /* IWindowHandler Lib.hpp in Headers */,
 				BB6DC2441ED9BA68008FAD2C /* WindowHandle.hpp in Headers */,

@@ -20,6 +20,7 @@ A cross platform window creation lib.
 #endif
 #include "WindowHandle.hpp"
 #include "WindowHandler Lib.hpp"
+#include "Defs.h"
 
 namespace WindowHandler_Lib
 {
@@ -27,13 +28,13 @@ namespace WindowHandler_Lib
 	static const DWORD gdi_show_mode_map[] = { SW_MINIMIZE, SW_MAXIMIZE, SW_HIDE, SW_RESTORE, SW_SHOW, SW_SHOWDEFAULT, SW_SHOWMAXIMIZED, SW_SHOWMINIMIZED, SW_SHOWMINNOACTIVE, SW_SHOWNA, SW_SHOWNOACTIVATE, SW_SHOWNORMAL };
 #endif
 
+    int32_t WindowHandler::default_wnd_proc()
+    {
+        return 0;
+    }
 
 #if defined(_WIN32) || defined(__WIN32__)
-	int32_t default_wnd_proc()
-	{
-		return 0;
-	}
-	LRESULT CALLBACK wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+	LRESULT CALLBACK WindowHandler::wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		if (msg == WM_CREATE)
 			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((WindowHandler*)std::stoull(std::string(((CREATESTRUCT*)lparam)->lpszClass).replace(0, std::strlen(WINDOW_HANLDER_CLASS_NAME_ID), "").c_str()))->get_wnd_proc());
@@ -45,7 +46,10 @@ namespace WindowHandler_Lib
 		return DefWindowProc(hwnd, msg, wparam, lparam);//return default reaction
 	}
 #else
-	bool init_glfw()
+    
+    
+    
+	bool WindowHandler::init_glfw()
 	{
 		static bool glfw_initialized = false;
 		if (!glfw_initialized)

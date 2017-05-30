@@ -40,6 +40,12 @@ namespace WindowHandler_Lib
 
 	class WindowHandler : public IWindowHandler
 	{
+        static int32_t default_wnd_proc();
+#if defined(_WIN32) || defined(__WIN32__)
+        static LRESULT CALLBACK wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+#else
+        static bool init_glfw();
+#endif
         std::string title;
 		EventHandlerCallback wnd_proc;
 #if defined(_WIN32) || defined(__WIN32__)

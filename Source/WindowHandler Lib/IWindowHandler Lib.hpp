@@ -18,7 +18,7 @@ A cross platform window creation lib.
 
 #include <string>
 #include "WindowHandle.hpp"
-#include "Defs.hpp"
+#include "Defs.h"
 
 namespace WindowHandler_Lib
 {
