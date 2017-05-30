@@ -321,34 +321,30 @@ namespace WindowHandler_Lib
 		case SM_RESTORE:
 			glfwRestoreWindow(hwnd);
 			break;
-		case SM_SHOW:
+        case SM_SHOW:
+            glfwFocusWindow(hwnd);
 			glfwShowWindow(hwnd);
-			glfwFocusWindow(hwnd);
 			break;
 		case SM_SHOWMAXIMIZED:
-			glfwShowWindow(hwnd);
 			glfwFocusWindow(hwnd);
+            glfwMaximizeWindow(hwnd);
 			break;
 		case SM_SHOWMINIMIZED:
+            glfwFocusWindow(hwnd);
 			glfwIconifyWindow(hwnd);
-			glfwShowWindow(hwnd);
-			glfwFocusWindow(hwnd);
 			break;
 		case SM_SHOWMINNOACTIVE:
 			glfwIconifyWindow(hwnd);
-			glfwShowWindow(hwnd);
 			break;
 		case SM_SHOWNA:
 			glfwShowWindow(hwnd);
 			break;
 		case SM_SHOWNOACTIVATE:
 			glfwRestoreWindow(hwnd);
-			glfwShowWindow(hwnd);
 			break;
-		case SM_SHOWNORMAL:
+        case SM_SHOWNORMAL:
+            glfwFocusWindow(hwnd);
 			glfwRestoreWindow(hwnd);
-			glfwShowWindow(hwnd);
-			glfwFocusWindow(hwnd);
 			break;
 		default:
 			break;
