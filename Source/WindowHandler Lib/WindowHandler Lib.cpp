@@ -11,9 +11,11 @@ A cross platform window creation lib.
 *	4-window creation for windows can be enhanced to support parent window
 */
 #include <string>
+#include <unordered_map>
 #if defined(_WIN32) || defined(__WIN32__)
 #include <Windows.h>
 #else
+
 #include "../../Includes/GLFW/glfw3.h"
 #endif
 #include "WindowHandle.hpp"
@@ -21,15 +23,19 @@ A cross platform window creation lib.
 
 namespace WindowHandler_Lib
 {
-
 #if defined(_WIN32) || defined(__WIN32__)
 	static const DWORD gdi_show_mode_map[] = { SW_MINIMIZE, SW_MAXIMIZE, SW_HIDE, SW_RESTORE, SW_SHOW, SW_SHOWDEFAULT, SW_SHOWMAXIMIZED, SW_SHOWMINIMIZED, SW_SHOWMINNOACTIVE, SW_SHOWNA, SW_SHOWNOACTIVATE, SW_SHOWNORMAL };
 #endif
 
 
 #if defined(_WIN32) || defined(__WIN32__)
+	static std::unordered_map<HWND, EventHandlerCallback> wnd_event_handlers;
+	static std::pair<HWND, EventHandlerCallback> last_wnd_proc = {NULL, NULL};
 	LRESULT CALLBACK default_wnd_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 	{
+		if (last_wnd_proc.first != hWnd)
+			last_wnd_proc = { hWnd, wnd_event_handlers[hWnd] };
+		int32_t result = last_wnd_proc.second();
 		return DefWindowProc(hWnd, Msg, wParam, lParam);//return default reaction
 	}
 #else
@@ -375,14 +381,16 @@ namespace WindowHandler_Lib
 		return window_handle;
 	}
 
-#if defined(_WIN32) || defined(__WIN32__)
-	void WindowHandler::set_wnd_proc(WNDPROC i_wnd_proc)
-	{
-		wnd_class.lpfnWndProc = i_wnd_proc;
-	}
-#else
 
+	void WindowHandler::set_wnd_proc(EventHandlerCallback wnd_proc)
+	{
+#if defined(_WIN32) || defined(__WIN32__)
+		wnd_event_handlers[hwnd] = wnd_proc;
+#else
 #endif
+	}
+
+
 	int WindowHandler::get_width()
 	{
 #if defined(_WIN32) || defined(__WIN32__)

@@ -73,12 +73,7 @@ namespace WindowHandler_Lib
 		void set_title(std::string i_title);//only accessible after window creation
 		void peek_event();//doesnt wait for the event
 		void get_event();//waits for the event
-
-#if defined(_WIN32) || defined(__WIN32__)
-		void set_wnd_proc(WNDPROC wnd);//single wnd proc on windows
-#else
-
-#endif
+		void set_wnd_proc(EventHandlerCallback wnd_proc);
 	};
 }
 #endif

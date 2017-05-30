@@ -95,6 +95,7 @@
     </ClCompile>
     <Link>
       <NoEntryPoint>false</NoEntryPoint>
+      <AdditionalLibraryDirectories>..\..\..\Lib\Debug\x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
