@@ -5,16 +5,16 @@
 	#ifdef _DEBUG
 		#define CurrentDirectory(x) ("../../../" x)
 	#else
-		#define CurrentDirectory(x) (x)
+		#define CurrentDirectory(x) ("" x)
 	#endif
 #elif defined(__APPLE__)
 	#ifdef DEBUG
 		#define CurrentDirectory(x) ("../../../" x)
 	#else
-		#define CurrentDirectory(x) (x)
+		#define CurrentDirectory(x) ("" x)
 	#endif
 #else
-	#define CurrentDirectory(x) (x)
+	#define CurrentDirectory(x) ("" x)
 #endif
 
 #endif
