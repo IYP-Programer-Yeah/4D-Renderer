@@ -7,13 +7,13 @@ A cross platform window creation lib.
 #define IWINDOW_HANLER_LIB
 
 #if defined(_WIN32) || defined(__WIN32__)
-#ifdef IWINDOW_HANLER_LIB_DLL_EXPORTS
-#define IWINDOW_HANLER_LIB_DLL_EXPORT __declspec(dllexport)
+    #ifdef IWINDOW_HANLER_LIB_DLL_EXPORTS
+        #define IWINDOW_HANLER_LIB_DLL_EXPORT __declspec(dllexport)
+    #else
+        #define IWINDOW_HANLER_LIB_DLL_EXPORT  __declspec(dllimport)
+    #endif
 #else
-#define IWINDOW_HANLER_LIB_DLL_EXPORT  __declspec(dllimport)
-#endif
-#else
-#define IWINDOW_HANLER_LIB_DLL_EXPORT
+    #define IWINDOW_HANLER_LIB_DLL_EXPORT
 #endif
 
 #include <string>
