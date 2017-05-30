@@ -37,7 +37,7 @@ namespace WindowHandler_Lib
 	LRESULT CALLBACK WindowHandler::wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		if (msg == WM_CREATE)
-			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((WindowHandler*)std::stoull(std::string(((CREATESTRUCT*)lparam)->lpszClass).replace(0, std::strlen(WINDOW_HANLDER_CLASS_NAME_ID), "").c_str()))->get_wnd_proc());
+			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((WindowHandler*)std::stoull(std::string(((CREATESTRUCT*)lparam)->lpszClass).replace(0, std::strlen(WINDOW_HANLDER_CLASS_NAME_ID), "").c_str()))->wnd_proc());
 		int32_t size;
 		EventHandlerCallback wnd_proc = EventHandlerCallback(GetWindowLongPtr(hwnd, GWL_USERDATA));
 		if (wnd_proc != NULL)
@@ -46,8 +46,48 @@ namespace WindowHandler_Lib
 		return DefWindowProc(hwnd, msg, wparam, lparam);//return default reaction
 	}
 #else
+    void WindowHandler::call_wnd_proc(GLFWwindow* hwnd)
+    {
+        EventHandlerCallback wnd_proc = (EventHandlerCallback)glfwGetWindowUserPointer(hwnd);
+        int32_t result = wnd_proc();
+    }
     
+    void WindowHandler::pos_event_handler (GLFWwindow * hwnd, int, int)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+    }
     
+    void WindowHandler::size_event_handler (GLFWwindow * hwnd, int, int)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+    }
+    
+    void WindowHandler::close_event_handler (GLFWwindow * hwnd)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+        if (glfwWindowShouldClose(hwnd) && result == 0)
+            ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->close_window();
+    }
+    
+    void WindowHandler::refresh_event_handler (GLFWwindow * hwnd)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+    }
+    
+    void WindowHandler::focus_event_handler (GLFWwindow * hwnd, int)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+    }
+    
+    void WindowHandler::iconify_event_handler (GLFWwindow * hwnd, int)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+    }
+    
+    void WindowHandler::buffersize_event_handler (GLFWwindow * hwnd, int, int)
+    {
+        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+    }
     
 	bool WindowHandler::init_glfw()
 	{
@@ -301,6 +341,14 @@ namespace WindowHandler_Lib
 		glfwWindowHint(GLFW_CLIENT_API, glfw_hints.wh_client_api);
 		glfwWindowHint(GLFW_CONTEXT_CREATION_API, glfw_hints.wh_context_creation_api);
 		hwnd = glfwCreateWindow(w, h, i_title.c_str(), NULL, NULL);
+        glfwSetWindowUserPointer(hwnd, this);
+        glfwSetWindowPosCallback(hwnd, pos_event_handler);
+        glfwSetWindowSizeCallback(hwnd, size_event_handler);
+        glfwSetWindowCloseCallback(hwnd, close_event_handler);
+        glfwSetWindowRefreshCallback(hwnd, refresh_event_handler);
+        glfwSetWindowFocusCallback(hwnd, focus_event_handler);
+        glfwSetWindowIconifyCallback(hwnd, iconify_event_handler);
+        glfwSetFramebufferSizeCallback(hwnd, buffersize_event_handler);
 #endif
 		if (hwnd == NULL)
 			return false;

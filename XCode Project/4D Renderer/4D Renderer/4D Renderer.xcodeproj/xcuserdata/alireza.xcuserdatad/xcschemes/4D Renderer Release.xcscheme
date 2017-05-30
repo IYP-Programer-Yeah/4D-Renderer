@@ -48,6 +48,20 @@
                ReferencedContainer = "container:../../WindowHandler Lib/WindowHandler Lib/WindowHandler Lib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BBDB74D51EDD562A002B22F0"
+               BuildableName = "libOpenGLRenderer Lib.dylib"
+               BlueprintName = "OpenGLRenderer Lib"
+               ReferencedContainer = "container:../../OpenGLRenderer Lib/OpenGLRenderer Lib/OpenGLRenderer Lib.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
