@@ -52,7 +52,7 @@ namespace WindowHandler_Lib
 	int32_t WindowHandler::call_wnd_proc(GLFWwindow* hwnd, WindowHandler* &window_handler)
     {
 		window_handler = (WindowHandler*)glfwGetWindowUserPointer(hwnd);
-        return handler->wnd_proc(window_handler->user_ptr);
+        return window_handler->wnd_proc(window_handler->user_ptr);
     }
     
     void WindowHandler::pos_event_handler (GLFWwindow * hwnd, int, int)

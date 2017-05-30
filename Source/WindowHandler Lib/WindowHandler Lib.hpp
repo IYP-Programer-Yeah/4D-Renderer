@@ -44,7 +44,7 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
         static LRESULT CALLBACK wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 #else
-        static void call_wnd_proc(GLFWwindow* hwnd, WindowHandler* &window_handler);
+        static int32_t call_wnd_proc(GLFWwindow* hwnd, WindowHandler* &window_handler);
         static void pos_event_handler (GLFWwindow *, int, int);
         static void size_event_handler (GLFWwindow *, int, int);
         static void close_event_handler (GLFWwindow *);
