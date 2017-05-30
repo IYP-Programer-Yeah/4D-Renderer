@@ -21,10 +21,10 @@ A cross platform window creation lib.
 #include <Windows.h>//this should soon be removed
 #endif
 #include "WindowHandle.hpp"
+#include "Defs.hpp"
 
 namespace WindowHandler_Lib
 {
-	typedef std::int32_t(*EventHandlerCallback)();
 	struct IWindowHandler
 	{
 		enum WindowShowMode
@@ -88,7 +88,7 @@ namespace WindowHandler_Lib
 		virtual void set_title(std::string i_title) = 0;//only accessible after window creation
 		virtual void peek_event() = 0;//doesnt wait for the event
 		virtual void get_event() = 0;//waits for the event
-		virtual void set_wnd_proc(EventHandlerCallback wnd_proc) = 0;
+		virtual void set_wnd_proc(EventHandlerCallback i_wnd_proc) = 0;
 	};
 	IWINDOW_HANLER_LIB_DLL_EXPORT IWindowHandler* creat_window_handler();
 	IWINDOW_HANLER_LIB_DLL_EXPORT void delete_window_handler(IWindowHandler* window_handler);

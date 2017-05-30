@@ -21,12 +21,18 @@
     <ClCompile Include="..\..\..\Source\OpenGL Renderer Lib\IOpenGLRenderer Lib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\OpenGL Renderer Lib\WindowContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\IOpenGLRenderer Lib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\OpenGLRenderer Lib.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\WindowContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

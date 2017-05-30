@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\WindowHandler Lib\Defs.hpp" />
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\IWindowHandler Lib.hpp" />
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\WindowHandle.hpp" />
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\WindowHandler Lib.hpp" />

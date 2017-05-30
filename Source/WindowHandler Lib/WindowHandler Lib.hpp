@@ -41,11 +41,13 @@ namespace WindowHandler_Lib
 	class WindowHandler : public IWindowHandler
 	{
         std::string title;
+		EventHandlerCallback wnd_proc;
 #if defined(_WIN32) || defined(__WIN32__)
 		HWND hwnd;
 		PIXELFORMATDESCRIPTOR pfd;
 		WNDCLASS wnd_class;
 		DWORD wnd_style;
+		std::string class_name;
 		void init_pfd();
 		void init_wnd_class();
 #else
@@ -53,7 +55,6 @@ namespace WindowHandler_Lib
 		GLFWHints glfw_hints;
 #endif
 		void init_wnd_hints();
-		void set_title_value(std::string i_title);
 	public:
 		WindowHandler();
 		void hint_window(WindowHints window_hint, std::uint64_t hint_value);//hint attributes including pixel formats
@@ -73,7 +74,8 @@ namespace WindowHandler_Lib
 		void set_title(std::string i_title);//only accessible after window creation
 		void peek_event();//doesnt wait for the event
 		void get_event();//waits for the event
-		void set_wnd_proc(EventHandlerCallback wnd_proc);
+		void set_wnd_proc(EventHandlerCallback i_wnd_proc);
+		EventHandlerCallback get_wnd_proc();
 	};
 }
 #endif

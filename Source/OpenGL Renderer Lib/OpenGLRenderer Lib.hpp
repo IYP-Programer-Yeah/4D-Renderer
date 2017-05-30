@@ -9,5 +9,5 @@ namespace OpenGLRenderer_Lib
     class OpenGLRenderer : public IOpenGLRenderer
     {
     
-    }
+	};
 }

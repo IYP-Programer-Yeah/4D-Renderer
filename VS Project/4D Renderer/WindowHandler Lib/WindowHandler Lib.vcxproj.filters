@@ -24,6 +24,9 @@
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\IWindowHandler Lib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\WindowHandler Lib\Defs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandle.cpp">

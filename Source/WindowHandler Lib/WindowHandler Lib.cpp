@@ -11,9 +11,9 @@ A cross platform window creation lib.
 *	4-window creation for windows can be enhanced to support parent window
 */
 #include <string>
-#include <unordered_map>
 #if defined(_WIN32) || defined(__WIN32__)
 #include <Windows.h>
+#define WINDOW_HANLDER_CLASS_NAME_ID "WHLIB:InstanceID="
 #else
 
 #include "../../Includes/GLFW/glfw3.h"
@@ -29,14 +29,20 @@ namespace WindowHandler_Lib
 
 
 #if defined(_WIN32) || defined(__WIN32__)
-	static std::unordered_map<HWND, EventHandlerCallback> wnd_event_handlers;
-	static std::pair<HWND, EventHandlerCallback> last_wnd_proc = {NULL, NULL};
-	LRESULT CALLBACK default_wnd_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+	int32_t default_wnd_proc()
 	{
-		if (last_wnd_proc.first != hWnd)
-			last_wnd_proc = { hWnd, wnd_event_handlers[hWnd] };
-		int32_t result = last_wnd_proc.second();
-		return DefWindowProc(hWnd, Msg, wParam, lParam);//return default reaction
+		return 0;
+	}
+	LRESULT CALLBACK wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+	{
+		if (msg == WM_CREATE)
+			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((WindowHandler*)std::stoull(std::string(((CREATESTRUCT*)lparam)->lpszClass).replace(0, std::strlen(WINDOW_HANLDER_CLASS_NAME_ID), "").c_str()))->get_wnd_proc());
+		int32_t size;
+		EventHandlerCallback wnd_proc = EventHandlerCallback(GetWindowLongPtr(hwnd, GWL_USERDATA));
+		if (wnd_proc != NULL)
+			size = wnd_proc();
+
+		return DefWindowProc(hwnd, msg, wparam, lparam);//return default reaction
 	}
 #else
 	bool init_glfw()
@@ -47,14 +53,6 @@ namespace WindowHandler_Lib
 		return glfw_initialized;
 	}
 #endif
-
-	void WindowHandler::set_title_value(std::string i_title)
-	{
-		title = i_title;
-#if defined(_WIN32) || defined(__WIN32__)
-		wnd_class.lpszClassName = title.c_str();//kind safe
-#endif
-	}
 
 #if defined(_WIN32) || defined(__WIN32__)
 	void WindowHandler::init_pfd()
@@ -84,6 +82,8 @@ namespace WindowHandler_Lib
 	{
 		//init window class
 		wnd_class.style = CS_HREDRAW | CS_VREDRAW;
+		class_name = (std::string(WINDOW_HANLDER_CLASS_NAME_ID) + std::to_string(size_t(this)));
+		wnd_class.lpszClassName = class_name.c_str();
 		wnd_class.lpfnWndProc = NULL;
 		wnd_class.cbClsExtra = NULL;
 		wnd_class.cbWndExtra = NULL;
@@ -91,7 +91,7 @@ namespace WindowHandler_Lib
 		wnd_class.hCursor = LoadCursor(NULL, IDC_ARROW); //set the cursor to arrow
 		wnd_class.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //clear the window with white
 		wnd_class.lpszMenuName = NULL;//no menu
-		wnd_class.lpfnWndProc = default_wnd_proc;
+		wnd_class.lpfnWndProc = wnd_proc_handler;
 		/*#ifndef _M_X64 //if 32bit
 		Main_Windows.WndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCEA(IDI_ICON1)); //set the icon 32bit
 		#else          //if 64bit
@@ -133,6 +133,7 @@ namespace WindowHandler_Lib
 
 	WindowHandler::WindowHandler()
 	{
+		wnd_proc = default_wnd_proc;
 #if defined(_WIN32) || defined(__WIN32__)
 #else
 		init_glfw();
@@ -272,10 +273,10 @@ namespace WindowHandler_Lib
 
 	bool WindowHandler::create_window(int x, int y, int w, int h, std::string i_title)
 	{
-		set_title_value(i_title);
+		title = i_title;
 #if defined(_WIN32) || defined(__WIN32__)
 		RegisterClass(&wnd_class);
-		hwnd = CreateWindow(i_title.c_str(), i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, NULL);
+		hwnd = CreateWindow(wnd_class.lpszClassName, i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, NULL);
 #else
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, glfw_hints.wh_resizable);
@@ -382,14 +383,15 @@ namespace WindowHandler_Lib
 	}
 
 
-	void WindowHandler::set_wnd_proc(EventHandlerCallback wnd_proc)
+	void WindowHandler::set_wnd_proc(EventHandlerCallback i_wnd_proc)
 	{
-#if defined(_WIN32) || defined(__WIN32__)
-		wnd_event_handlers[hwnd] = wnd_proc;
-#else
-#endif
+		wnd_proc = i_wnd_proc;
 	}
 
+	EventHandlerCallback WindowHandler::get_wnd_proc()
+	{
+		return wnd_proc;
+	}
 
 	int WindowHandler::get_width()
 	{
@@ -486,7 +488,7 @@ namespace WindowHandler_Lib
 
 	void WindowHandler::set_title(std::string i_title)
 	{
-		set_title_value(i_title);
+		title = i_title;
 #if defined(_WIN32) || defined(__WIN32__)
 		SetWindowText(hwnd, title.c_str());
 #else

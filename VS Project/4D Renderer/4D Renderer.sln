@@ -15,6 +15,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowHandler Lib", "WindowHandler Lib\WindowHandler Lib.vcxproj", "{D2F626AA-1558-453E-A05B-A947FDFC9855}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLRenderer Lib", "OpenGLRenderer Lib\OpenGLRenderer Lib.vcxproj", "{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D2F626AA-1558-453E-A05B-A947FDFC9855} = {D2F626AA-1558-453E-A05B-A947FDFC9855}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

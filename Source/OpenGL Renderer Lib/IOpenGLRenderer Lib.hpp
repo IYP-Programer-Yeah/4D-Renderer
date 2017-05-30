@@ -18,10 +18,13 @@
 
 namespace OpenGLRenderer_Lib
 {
-    class OpenGLRenderer
+    class IOpenGLRenderer
     {
         
     };
+	IOPENGL_RENDERER_LIB_DLL_EXPORT IOpenGLRenderer* create_opengl_renderer();
+	IOPENGL_RENDERER_LIB_DLL_EXPORT void delete_opengl_renderer(IOpenGLRenderer* window_handler);
+
 }
 
 #endif
