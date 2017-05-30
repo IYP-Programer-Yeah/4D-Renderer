@@ -86,6 +86,7 @@ namespace WindowHandler_Lib
 		virtual void peek_event() = 0;//doesnt wait for the event
 		virtual void get_event() = 0;//waits for the event
 		virtual void set_wnd_proc(EventHandlerCallback i_wnd_proc) = 0;
+		virtual void set_user_ptr(void* i_user_ptr) = 0;
 	};
 	IWINDOW_HANLER_LIB_DLL_EXPORT IWindowHandler* creat_window_handler();
 	IWINDOW_HANLER_LIB_DLL_EXPORT void delete_window_handler(IWindowHandler* window_handler);

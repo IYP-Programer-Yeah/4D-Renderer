@@ -7,6 +7,6 @@ A cross platform window creation lib.
 #include <cstdint>
 namespace WindowHandler_Lib
 {
-	typedef std::int32_t(*EventHandlerCallback)();
+	typedef std::int32_t(*EventHandlerCallback)(void*);
 }
 #endif

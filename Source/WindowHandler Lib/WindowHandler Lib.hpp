@@ -40,7 +40,7 @@ namespace WindowHandler_Lib
 
 	class WindowHandler : public IWindowHandler
 	{
-        static int32_t default_wnd_proc();
+        static int32_t default_wnd_proc(void* user_ptr);
 #if defined(_WIN32) || defined(__WIN32__)
         static LRESULT CALLBACK wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 #else
@@ -56,6 +56,7 @@ namespace WindowHandler_Lib
 #endif
         std::string title;
 		EventHandlerCallback wnd_proc;
+		void* user_ptr;
 #if defined(_WIN32) || defined(__WIN32__)
 		HWND hwnd;
 		PIXELFORMATDESCRIPTOR pfd;
@@ -89,7 +90,7 @@ namespace WindowHandler_Lib
 		void peek_event();//doesnt wait for the event
 		void get_event();//waits for the event
 		void set_wnd_proc(EventHandlerCallback i_wnd_proc);
-		EventHandlerCallback get_wnd_proc();
+		void set_user_ptr(void* i_user_ptr);
 	};
 }
 #endif

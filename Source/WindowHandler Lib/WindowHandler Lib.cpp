@@ -28,7 +28,7 @@ namespace WindowHandler_Lib
 	static const DWORD gdi_show_mode_map[] = { SW_MINIMIZE, SW_MAXIMIZE, SW_HIDE, SW_RESTORE, SW_SHOW, SW_SHOWDEFAULT, SW_SHOWMAXIMIZED, SW_SHOWMINIMIZED, SW_SHOWMINNOACTIVE, SW_SHOWNA, SW_SHOWNOACTIVATE, SW_SHOWNORMAL };
 #endif
 
-    int32_t WindowHandler::default_wnd_proc()
+    int32_t WindowHandler::default_wnd_proc(void* user_ptr)
     {
         return 0;
     }
@@ -36,57 +36,68 @@ namespace WindowHandler_Lib
 #if defined(_WIN32) || defined(__WIN32__)
 	LRESULT CALLBACK WindowHandler::wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
-		if (msg == WM_CREATE)
-			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((WindowHandler*)std::stoull(std::string(((CREATESTRUCT*)lparam)->lpszClass).replace(0, std::strlen(WINDOW_HANLDER_CLASS_NAME_ID), "").c_str()))->wnd_proc());
-		int32_t size;
-		EventHandlerCallback wnd_proc = EventHandlerCallback(GetWindowLongPtr(hwnd, GWL_USERDATA));
-		if (wnd_proc != NULL)
-			size = wnd_proc();
+		if (msg == WM_NCCREATE)
+			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((CREATESTRUCT*)lparam)->lpCreateParams);
+		int32_t result;
+		WindowHandler* window_handler = (WindowHandler*)GetWindowLongPtr(hwnd, GWL_USERDATA);
+		if (window_handler != NULL)
+		{
+			EventHandlerCallback wnd_proc = window_handler->wnd_proc;
+			result = wnd_proc(window_handler->user_ptr);
+		}
 
 		return DefWindowProc(hwnd, msg, wparam, lparam);//return default reaction
 	}
 #else
-    void WindowHandler::call_wnd_proc(GLFWwindow* hwnd)
+	int32_t WindowHandler::call_wnd_proc(GLFWwindow* hwnd, WindowHandler* &window_handler)
     {
-        EventHandlerCallback wnd_proc = (EventHandlerCallback)glfwGetWindowUserPointer(hwnd);
-        int32_t result = wnd_proc();
+		window_handler = glfwGetWindowUserPointer(hwnd);
+        EventHandlerCallback wnd_proc = (EventHandlerCallback)window_handler->wnd_proc;
+        return wnd_proc(window_handler->user_ptr);
     }
     
     void WindowHandler::pos_event_handler (GLFWwindow * hwnd, int, int)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+		WindowHandler* window_handler;
+        int32_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::size_event_handler (GLFWwindow * hwnd, int, int)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
-    }
+		WindowHandler* window_handler;
+		int32_t result = call_wnd_proc(hwnd, window_handler);
+	}
     
     void WindowHandler::close_event_handler (GLFWwindow * hwnd)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
-        if (glfwWindowShouldClose(hwnd) && result == 0)
-            ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->close_window();
-    }
+		WindowHandler* window_handler;
+		int32_t result = call_wnd_proc(hwnd, window_handler);
+		if (window_handler && result == 0)
+			((WindowHandler*)glfwGetWindowUserPointer(hwnd))->close_window();
+	}
     
     void WindowHandler::refresh_event_handler (GLFWwindow * hwnd)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+		WindowHandler* window_handler;
+		int32_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::focus_event_handler (GLFWwindow * hwnd, int)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+		WindowHandler* window_handler;
+		int32_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::iconify_event_handler (GLFWwindow * hwnd, int)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+		WindowHandler* window_handler;
+		int32_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::buffersize_event_handler (GLFWwindow * hwnd, int, int)
     {
-        int result = ((WindowHandler*)glfwGetWindowUserPointer(hwnd))->wnd_proc();
+		WindowHandler* window_handler;
+		int32_t result = call_wnd_proc(hwnd, window_handler);
     }
     
 	bool WindowHandler::init_glfw()
@@ -177,6 +188,7 @@ namespace WindowHandler_Lib
 
 	WindowHandler::WindowHandler()
 	{
+		user_ptr = NULL;
 		wnd_proc = default_wnd_proc;
 #if defined(_WIN32) || defined(__WIN32__)
 #else
@@ -320,7 +332,7 @@ namespace WindowHandler_Lib
 		title = i_title;
 #if defined(_WIN32) || defined(__WIN32__)
 		RegisterClass(&wnd_class);
-		hwnd = CreateWindow(wnd_class.lpszClassName, i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, NULL);
+		hwnd = CreateWindow(wnd_class.lpszClassName, i_title.c_str(), wnd_style, x, y, w, h, NULL, NULL, NULL, this);
 #else
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, glfw_hints.wh_resizable);
@@ -432,17 +444,6 @@ namespace WindowHandler_Lib
 		WindowHandle window_handle(&hwnd);
 #endif
 		return window_handle;
-	}
-
-
-	void WindowHandler::set_wnd_proc(EventHandlerCallback i_wnd_proc)
-	{
-		wnd_proc = i_wnd_proc;
-	}
-
-	EventHandlerCallback WindowHandler::get_wnd_proc()
-	{
-		return wnd_proc;
 	}
 
 	int WindowHandler::get_width()
@@ -575,4 +576,15 @@ namespace WindowHandler_Lib
 		glfwWaitEvents();
 #endif
 	}
+
+	void WindowHandler::set_wnd_proc(EventHandlerCallback i_wnd_proc)
+	{
+		wnd_proc = i_wnd_proc;
+	}
+
+	void WindowHandler::set_user_ptr(void* i_user_ptr)
+	{
+		user_ptr = i_user_ptr;
+	}
+
 }

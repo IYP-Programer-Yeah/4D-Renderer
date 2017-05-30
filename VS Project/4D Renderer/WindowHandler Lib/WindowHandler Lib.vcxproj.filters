@@ -24,7 +24,7 @@
     <ClInclude Include="..\..\..\Source\WindowHandler Lib\IWindowHandler Lib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\WindowHandler Lib\Defs.hpp">
+    <ClInclude Include="..\..\..\Source\WindowHandler Lib\Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
