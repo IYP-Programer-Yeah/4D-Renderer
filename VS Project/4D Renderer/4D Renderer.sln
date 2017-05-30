@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FS Lib", "FS Lib\FS Lib.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowHandler Lib", "WindowHandler Lib\WindowHandler Lib.vcxproj", "{D2F626AA-1558-453E-A05B-A947FDFC9855}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLRenderer Lib", "OpenGLRenderer Lib\OpenGLRenderer Lib.vcxproj", "{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -45,6 +47,14 @@ Global
 		{D2F626AA-1558-453E-A05B-A947FDFC9855}.Release|x64.Build.0 = Release|x64
 		{D2F626AA-1558-453E-A05B-A947FDFC9855}.Release|x86.ActiveCfg = Release|Win32
 		{D2F626AA-1558-453E-A05B-A947FDFC9855}.Release|x86.Build.0 = Release|Win32
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Debug|x64.ActiveCfg = Debug|x64
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Debug|x64.Build.0 = Debug|x64
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Debug|x86.ActiveCfg = Debug|Win32
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Debug|x86.Build.0 = Debug|Win32
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Release|x64.ActiveCfg = Release|x64
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Release|x64.Build.0 = Release|x64
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Release|x86.ActiveCfg = Release|Win32
+		{D9E1995E-E66E-4CEA-BDD7-050C7993A65F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
