@@ -69,7 +69,7 @@ namespace WindowHandler_Lib
 		};
 
 		virtual void hint_window(WindowHints window_hint, std::uint64_t hint_value) = 0;//hint attributes including pixel formats
-		virtual bool create_window(int x, int y, int w, int h, std::string i_title) = 0;//create the window
+		virtual bool create_window(int x, int y, int w, int h, const std::string &i_title) = 0;//create the window
 		virtual void show_window(WindowShowMode window_show_mode) = 0;//show the window, behavior differes between Windows and the rest of the platforms
 		virtual void close_window() = 0;//close the window
 		virtual WindowHandle get_handle() = 0;//gets a handle to window, applys pixel format on Windows
@@ -82,7 +82,7 @@ namespace WindowHandler_Lib
 		virtual void set_height(int height) = 0;//only accessible after window creation
 		virtual void set_location_x(int x) = 0;//only accessible after window creation
 		virtual void set_location_y(int y) = 0;//only accessible after window creation
-		virtual void set_title(std::string i_title) = 0;//only accessible after window creation
+		virtual void set_title(const std::string &i_title) = 0;//only accessible after window creation
 		virtual void peek_event() = 0;//doesnt wait for the event
 		virtual void get_event() = 0;//waits for the event
 		virtual void set_wnd_proc(EventHandlerCallback i_wnd_proc) = 0;

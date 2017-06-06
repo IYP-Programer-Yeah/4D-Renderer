@@ -326,7 +326,7 @@ namespace WindowHandler_Lib
 		}
 	}
 
-	bool WindowHandler::create_window(int x, int y, int w, int h, std::string i_title)
+	bool WindowHandler::create_window(int x, int y, int w, int h, const std::string &i_title)
 	{
 		title = i_title;
 #if defined(_WIN32) || defined(__WIN32__)
@@ -538,7 +538,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	void WindowHandler::set_title(std::string i_title)
+	void WindowHandler::set_title(const std::string &i_title)
 	{
 		title = i_title;
 #if defined(_WIN32) || defined(__WIN32__)
