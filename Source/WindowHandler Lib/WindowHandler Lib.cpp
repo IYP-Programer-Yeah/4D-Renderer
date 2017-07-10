@@ -37,9 +37,9 @@ namespace WindowHandler_Lib
 	LRESULT CALLBACK WindowHandler::wnd_proc_handler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		if (msg == WM_NCCREATE)
-			SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG_PTR)((CREATESTRUCT*)lparam)->lpCreateParams);
+			SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)((CREATESTRUCT*)lparam)->lpCreateParams);
 		int32_t result;
-		WindowHandler* window_handler = (WindowHandler*)GetWindowLongPtr(hwnd, GWL_USERDATA);
+		WindowHandler* window_handler = (WindowHandler*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 		if (window_handler != NULL)
 		{
 			EventHandlerCallback wnd_proc = window_handler->wnd_proc;
