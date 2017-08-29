@@ -52,11 +52,11 @@ namespace FS_Lib
 		return file_read_or_saved;
 	}
 
-	bool File::add_data(void* i_data, std::size_t size, std::size_t at)
+	bool File::add_data(const void* i_data, std::size_t size, std::size_t at)
 	{
 		if (at <= data.size())
 		{
-			data.insert(data.begin() + at, (std::uint8_t*)i_data, (std::uint8_t*)i_data + size);
+			data.insert(data.begin() + at, reinterpret_cast<const std::uint8_t*>(i_data), reinterpret_cast<const std::uint8_t*>(i_data) + size);
 			return true;
 		}
 		return false;
@@ -108,13 +108,13 @@ namespace FS_Lib
 		if (end == std::ios::pos_type(-1))
 			return false;
 
-		data = std::vector<std::uint8_t>((std::size_t)end);
+		data = std::vector<std::uint8_t>(static_cast<std::size_t>(end));
 
 		try
 		{
 			file.seekp(std::ios::beg);//seek back to beging
 			if (data.size() > 0)
-				file.read((char*)&data[0], data.size());
+				file.read(reinterpret_cast<char*>(&data[0]), data.size());
 		}
 		catch (std::exception e)
 		{
@@ -133,7 +133,7 @@ namespace FS_Lib
 		try
 		{
 			if (data.size() > 0)
-				file.write((char*)&data[0], data.size());
+				file.write(reinterpret_cast<const char*>(&data[0]), data.size());
 		}
 		catch (std::exception e)
 		{

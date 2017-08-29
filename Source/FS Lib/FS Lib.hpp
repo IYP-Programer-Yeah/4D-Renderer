@@ -41,7 +41,7 @@ namespace FS_Lib
 		FS_LIB_DLL_EXPORT bool save() const;//uses the current path to save the file, if the file doesnt exist dont try saving it, use save as
 		FS_LIB_DLL_EXPORT bool save_as(const std::string& i_path);//save the file to a new path, changes current path
 		FS_LIB_DLL_EXPORT bool file_exists();//checks if the path is valid
-		FS_LIB_DLL_EXPORT bool add_data(void* src, std::size_t size, std::size_t at = 0);//adds data to the file data of given size at given point
+		FS_LIB_DLL_EXPORT bool add_data(const void* src, std::size_t size, std::size_t at = 0);//adds data to the file data of given size at given point
 		FS_LIB_DLL_EXPORT bool read_data(void* src, std::size_t size, std::size_t at = 0) const;//reads data of given size at givven point
 		FS_LIB_DLL_EXPORT const std::uint8_t* access_data(std::size_t at = 0) const;//direct access to data at given point, this is the const version
 		FS_LIB_DLL_EXPORT std::uint8_t* access_data(std::size_t at = 0);//direct access to data at given point
