@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		847B73061F601DE100082628 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F21EDAACD80013D037 /* libglfw.3.2.dylib */; };
+		847B73071F601E2800082628 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F41EDAACF10013D037 /* libglfw.3.2.dylib */; };
 		BB3AB7981EDC117400BF299A /* IWindowHandler Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3AB7961EDC117400BF299A /* IWindowHandler Lib.cpp */; };
 		BB3AB7991EDC117400BF299A /* IWindowHandler Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB3AB7971EDC117400BF299A /* IWindowHandler Lib.hpp */; };
 		BB4C216E1EDDB01900F65869 /* Defs.h in Headers */ = {isa = PBXBuildFile; fileRef = BB4C216D1EDDB01900F65869 /* Defs.h */; };
@@ -14,11 +16,10 @@
 		BB6DC2441ED9BA68008FAD2C /* WindowHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2401ED9BA68008FAD2C /* WindowHandle.hpp */; };
 		BB6DC2451ED9BA68008FAD2C /* WindowHandler Lib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6DC2411ED9BA68008FAD2C /* WindowHandler Lib.cpp */; };
 		BB6DC2461ED9BA68008FAD2C /* WindowHandler Lib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB6DC2421ED9BA68008FAD2C /* WindowHandler Lib.hpp */; };
-		BB98F4F31EDAACD80013D037 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F21EDAACD80013D037 /* libglfw.3.2.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
-		BB98F4F51EDAACF10013D037 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB98F4F41EDAACF10013D037 /* libglfw.3.2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		847B73021F6000CD00082628 /* 4D Renderer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "4D Renderer"; path = "../../4D Renderer/4D Renderer"; sourceTree = "<group>"; };
 		BB3AB7961EDC117400BF299A /* IWindowHandler Lib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "IWindowHandler Lib.cpp"; path = "../../../Source/WindowHandler Lib/IWindowHandler Lib.cpp"; sourceTree = "<group>"; };
 		BB3AB7971EDC117400BF299A /* IWindowHandler Lib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "IWindowHandler Lib.hpp"; path = "../../../Source/WindowHandler Lib/IWindowHandler Lib.hpp"; sourceTree = "<group>"; };
 		BB4C216D1EDDB01900F65869 /* Defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defs.h; path = "../../../Source/WindowHandler Lib/Defs.h"; sourceTree = "<group>"; };
@@ -36,8 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB98F4F51EDAACF10013D037 /* libglfw.3.2.dylib in Frameworks */,
-				BB98F4F31EDAACD80013D037 /* libglfw.3.2.dylib in Frameworks */,
+				847B73071F601E2800082628 /* libglfw.3.2.dylib in Frameworks */,
+				847B73061F601DE100082628 /* libglfw.3.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +79,7 @@
 		BB98F4F11EDAACD70013D037 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				847B73021F6000CD00082628 /* 4D Renderer */,
 				BB98F4F41EDAACF10013D037 /* libglfw.3.2.dylib */,
 				BB98F4F21EDAACD80013D037 /* libglfw.3.2.dylib */,
 			);
@@ -125,7 +127,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = alireza;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					BB6DC2361ED9BA46008FAD2C = {
 						CreatedOnToolsVersion = 8.2;
@@ -262,6 +264,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = "/Users/admin/C++/4D-Renderer/Lib/Release/x64";
+				LIBRARY_SEARCH_PATHS = "$(BUILD_DIR)/Lib/$(CONFIGURATION)/x64/**";
 				OBJROOT = Build;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -279,6 +283,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = "/Users/admin/C++/4D-Renderer/Lib/Release/x64";
+				LIBRARY_SEARCH_PATHS = "$(BUILD_DIR)/Lib/$(CONFIGURATION)/x64/**";
 				OBJROOT = Build;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

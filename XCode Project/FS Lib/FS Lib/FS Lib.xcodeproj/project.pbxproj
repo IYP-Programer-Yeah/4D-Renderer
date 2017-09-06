@@ -91,7 +91,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = alireza;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					BB056CBF1ED2E27E00DC2D99 = {
 						CreatedOnToolsVersion = 8.2;
@@ -225,6 +225,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				LIBRARY_SEARCH_PATHS = "$(BUILD_DIR)/Lib/$(CONFIGURATION)/x64/**";
 				OBJROOT = Build;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = "";
@@ -241,6 +242,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				LIBRARY_SEARCH_PATHS = "$(BUILD_DIR)/Lib/$(CONFIGURATION)/x64/**";
 				OBJROOT = Build;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
