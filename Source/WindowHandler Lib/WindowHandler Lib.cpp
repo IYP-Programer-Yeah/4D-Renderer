@@ -11,17 +11,16 @@ A cross platform window creation lib.
 *	4-window creation for windows can be enhanced to support parent window
 */
 #include <string>
-#if defined(_WIN32) || defined(__WIN32__)
-#include <Windows.h>
-#define WINDOW_HANLDER_CLASS_NAME_ID "WHLIB:InstanceID="
-#define MS_WINDOWS_ENV
-#else
-
-#include "../../Includes/GLFW/glfw3.h"
-#endif
 #include "WindowHandle.hpp"
 #include "WindowHandler Lib.hpp"
 #include "Defs.h"
+
+#ifdef MS_WINDOWS_ENV
+#	include <Windows.h>
+#	define WINDOW_HANLDER_CLASS_NAME_ID "WHLIB:InstanceID="
+#else
+#	include "../../Includes/GLFW/glfw3.h"
+#endif
 
 namespace WindowHandler_Lib
 {
