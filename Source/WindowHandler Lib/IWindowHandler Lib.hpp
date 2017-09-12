@@ -41,7 +41,7 @@ namespace WindowHandler_Lib
 		};
 		enum WindowHints
 		{
-			WH_CLIENT_API,
+			WH_SUPPORT_OPENGL,
 			WH_CONTEXT_CREATION_API,
 			WH_RESIZABLE,
 			WH_MINIMIZED,
@@ -63,25 +63,25 @@ namespace WindowHandler_Lib
 
 		enum HintValues
 		{
-			HFalse = false,
-			HTrue = true,
-			HDontCare
+			HV_FALSE = false,
+			HV_TRUE = true,
+			HV_DONTCARE
 		};
-
+        virtual ~IWindowHandler() = default;
 		virtual void hint_window(WindowHints window_hint, std::uint64_t hint_value) = 0;//hint attributes including pixel formats
-		virtual bool create_window(int x, int y, int w, int h, const std::string &i_title) = 0;//create the window
+		virtual bool create_window(std::int64_t x, std::int64_t y, std::int64_t w, std::int64_t h, const std::string &i_title) = 0;//create the window
 		virtual void show_window(WindowShowMode window_show_mode) = 0;//show the window, behavior differes between Windows and the rest of the platforms
 		virtual void close_window() = 0;//close the window
 		virtual WindowHandle get_handle() = 0;//gets a handle to window, applys pixel format on Windows
-		virtual int get_width() = 0;//only accessible after window creation
-		virtual int get_height() = 0;//only accessible after window creation
-		virtual int get_location_x() = 0;//only accessible after window creation
-		virtual int get_location_y() = 0;//only accessible after window creation
+		virtual std::int64_t get_width() = 0;//only accessible after window creation
+		virtual std::int64_t get_height() = 0;//only accessible after window creation
+		virtual std::int64_t get_location_x() = 0;//only accessible after window creation
+		virtual std::int64_t get_location_y() = 0;//only accessible after window creation
 		virtual std::string get_title() = 0;//only accessible after window creation
-		virtual void set_width(int width) = 0;//only accessible after window creation
-		virtual void set_height(int height) = 0;//only accessible after window creation
-		virtual void set_location_x(int x) = 0;//only accessible after window creation
-		virtual void set_location_y(int y) = 0;//only accessible after window creation
+		virtual void set_width(std::int64_t width) = 0;//only accessible after window creation
+		virtual void set_height(std::int64_t height) = 0;//only accessible after window creation
+		virtual void set_location_x(std::int64_t x) = 0;//only accessible after window creation
+		virtual void set_location_y(std::int64_t y) = 0;//only accessible after window creation
 		virtual void set_title(const std::string &i_title) = 0;//only accessible after window creation
 		virtual void peek_event() = 0;//doesnt wait for the event
 		virtual void get_event() = 0;//waits for the event

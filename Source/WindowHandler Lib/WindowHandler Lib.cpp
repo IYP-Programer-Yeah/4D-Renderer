@@ -49,7 +49,7 @@ namespace WindowHandler_Lib
 		return DefWindowProc(hwnd, msg, wparam, lparam);//return default reaction
 	}
 #else
-	int32_t WindowHandler::call_wnd_proc(GLFWwindow* hwnd, WindowHandler* &window_handler)
+	int64_t WindowHandler::call_wnd_proc(GLFWwindow* hwnd, WindowHandler* &window_handler)
     {
 		window_handler = reinterpret_cast<WindowHandler*>(glfwGetWindowUserPointer(hwnd));
         return window_handler->wnd_proc(window_handler->user_ptr);
@@ -58,45 +58,45 @@ namespace WindowHandler_Lib
     void WindowHandler::pos_event_handler (GLFWwindow * hwnd, int, int)
     {
 		WindowHandler* window_handler;
-        int32_t result = call_wnd_proc(hwnd, window_handler);
+        std::int64_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::size_event_handler (GLFWwindow * hwnd, int, int)
     {
 		WindowHandler* window_handler;
-		int32_t result = call_wnd_proc(hwnd, window_handler);
+		std::int64_t result = call_wnd_proc(hwnd, window_handler);
 	}
     
     void WindowHandler::close_event_handler (GLFWwindow * hwnd)
     {
 		WindowHandler* window_handler;
-		int32_t result = call_wnd_proc(hwnd, window_handler);
+		std::int64_t result = call_wnd_proc(hwnd, window_handler);
 		if (window_handler && result == 0)
-			reinterpret_cast<WindowHandler*>(glfwGetWindowUserPointer(hwnd))->close_window();
+			window_handler->close_window();
 	}
     
     void WindowHandler::refresh_event_handler (GLFWwindow * hwnd)
     {
 		WindowHandler* window_handler;
-		int32_t result = call_wnd_proc(hwnd, window_handler);
+		std::int64_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::focus_event_handler (GLFWwindow * hwnd, int)
     {
 		WindowHandler* window_handler;
-		int32_t result = call_wnd_proc(hwnd, window_handler);
+		std::int64_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::iconify_event_handler (GLFWwindow * hwnd, int)
     {
 		WindowHandler* window_handler;
-		int32_t result = call_wnd_proc(hwnd, window_handler);
+		std::int64_t result = call_wnd_proc(hwnd, window_handler);
     }
     
     void WindowHandler::buffersize_event_handler (GLFWwindow * hwnd, int, int)
     {
 		WindowHandler* window_handler;
-		int32_t result = call_wnd_proc(hwnd, window_handler);
+		std::int64_t result = call_wnd_proc(hwnd, window_handler);
     }
     
 	bool WindowHandler::init_glfw()
@@ -195,14 +195,20 @@ namespace WindowHandler_Lib
 #endif
 		init_wnd_hints();
 	}
+    
+    WindowHandler::~WindowHandler()
+    {
+        close_window();
+    }
 
 	void WindowHandler::hint_window(WindowHints window_hint, std::uint64_t hint_value)
 	{
 		switch (window_hint)
 		{
-		case WH_CLIENT_API:
+		case WH_SUPPORT_OPENGL:
 #ifdef MS_WINDOWS_ENV
 #else
+            glfw_hints.wh_client_api = (hint_value == HV_TRUE) ? GLFW_OPENGL_API : GLFW_NO_API;
 #endif
 			break;
 		case WH_CONTEXT_CREATION_API:
@@ -212,113 +218,113 @@ namespace WindowHandler_Lib
 			break;
 		case WH_RESIZABLE:
 #ifdef MS_WINDOWS_ENV
-			wnd_style = (hint_value) ? (wnd_style | WS_THICKFRAME) : (wnd_style & !WS_THICKFRAME);
+			wnd_style = (hint_value == HV_TRUE) ? (wnd_style | WS_THICKFRAME) : (wnd_style & !WS_THICKFRAME);
 #else
-			glfw_hints.wh_resizable = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_resizable = (hint_value == HV_TRUE) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		case WH_MINIMIZED:
 #ifdef MS_WINDOWS_ENV
-			wnd_style = (hint_value) ? (wnd_style | WS_MINIMIZE) : (wnd_style & !WS_MINIMIZE);
+			wnd_style = (hint_value == HV_TRUE) ? (wnd_style | WS_MINIMIZE) : (wnd_style & !WS_MINIMIZE);
 #else
 #endif
 			break;
 		case WH_MAXIMIZED:
 #ifdef MS_WINDOWS_ENV
-			wnd_style = (hint_value) ? (wnd_style | WS_MAXIMIZE) : (wnd_style & !WS_MAXIMIZE);
+			wnd_style = (hint_value == HV_TRUE) ? (wnd_style | WS_MAXIMIZE) : (wnd_style & !WS_MAXIMIZE);
 #else
-			glfw_hints.wh_maximized = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_maximized = (hint_value == HV_TRUE) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		case WH_RED_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cRedBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_red_bits = hint_value;
+			glfw_hints.wh_red_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_GREEN_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cGreenBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_green_bits = hint_value;
+			glfw_hints.wh_green_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_BLUE_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cBlueBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_blue_bits = hint_value;
+			glfw_hints.wh_blue_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_ALPHA_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cAlphaBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_alpha_bits = hint_value;
+			glfw_hints.wh_alpha_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_DEPTH_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cDepthBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_depth_bits = hint_value;
+			glfw_hints.wh_depth_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_STENCIL_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cStencilBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_stencil_bits = hint_value;
+			glfw_hints.wh_stencil_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_ACCUM_RED_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cAccumRedBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_accum_red_bits = hint_value;
+			glfw_hints.wh_accum_red_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_ACCUM_GREEN_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cAccumGreenBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_accum_green_bits = hint_value;
+			glfw_hints.wh_accum_green_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_ACCUM_BLUE_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cAccumBlueBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_accum_blue_bits = hint_value;
+			glfw_hints.wh_accum_blue_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_ACCUM_ALPHA_BITS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cAccumAlphaBits = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_accum_alpha_bits = hint_value;
+			glfw_hints.wh_accum_alpha_bits = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_AUX_BUFFERS:
 #ifdef MS_WINDOWS_ENV
 			pfd.cAuxBuffers = static_cast<BYTE>(hint_value);
 #else
-			glfw_hints.wh_aux_buffers = hint_value;
+			glfw_hints.wh_aux_buffers = static_cast<int>(hint_value);
 #endif
 			break;
 		case WH_STEREO:
 #ifdef MS_WINDOWS_ENV
-			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO) : ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
+			pfd.dwFlags = (hint_value != HV_FALSE) ? (hint_value == HV_TRUE ? ((pfd.dwFlags & !PFD_STEREO_DONTCARE) | PFD_STEREO) : ((pfd.dwFlags & !PFD_STEREO) | PFD_STEREO_DONTCARE)) : (pfd.dwFlags & !(PFD_STEREO | PFD_STEREO_DONTCARE));//mutually exclusive
 #else
 			glfw_hints.wh_stereo = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		case WH_DOUBLEBUFFER:
 #ifdef MS_WINDOWS_ENV
-			pfd.dwFlags = (hint_value) ? (hint_value == HTrue ? ((pfd.dwFlags & !PFD_DOUBLEBUFFER_DONTCARE) | PFD_DOUBLEBUFFER) : ((pfd.dwFlags & !PFD_DOUBLEBUFFER) | PFD_DOUBLEBUFFER_DONTCARE)) : (pfd.dwFlags & !(PFD_DOUBLEBUFFER | PFD_DOUBLEBUFFER_DONTCARE));//mutually exclusive
+			pfd.dwFlags = (hint_value != HV_FALSE) ? (hint_value == HV_TRUE ? ((pfd.dwFlags & !PFD_DOUBLEBUFFER_DONTCARE) | PFD_DOUBLEBUFFER) : ((pfd.dwFlags & !PFD_DOUBLEBUFFER) | PFD_DOUBLEBUFFER_DONTCARE)) : (pfd.dwFlags & !(PFD_DOUBLEBUFFER | PFD_DOUBLEBUFFER_DONTCARE));//mutually exclusive
 #else
-			glfw_hints.wh_doublebuffer = (hint_value) ? GLFW_TRUE : GLFW_FALSE;
+			glfw_hints.wh_doublebuffer = (hint_value == HV_TRUE) ? GLFW_TRUE : GLFW_FALSE;
 #endif
 			break;
 		default:
@@ -326,7 +332,7 @@ namespace WindowHandler_Lib
 		}
 	}
 
-	bool WindowHandler::create_window(int x, int y, int w, int h, const std::string &i_title)
+	bool WindowHandler::create_window(std::int64_t x, std::int64_t y, std::int64_t w, std::int64_t h, const std::string &i_title)
 	{
 		title = i_title;
 #ifdef MS_WINDOWS_ENV
@@ -351,7 +357,7 @@ namespace WindowHandler_Lib
 		glfwWindowHint(GLFW_DOUBLEBUFFER, glfw_hints.wh_doublebuffer);
 		glfwWindowHint(GLFW_CLIENT_API, glfw_hints.wh_client_api);
 		glfwWindowHint(GLFW_CONTEXT_CREATION_API, glfw_hints.wh_context_creation_api);
-		hwnd = glfwCreateWindow(w, h, i_title.c_str(), NULL, NULL);
+		hwnd = glfwCreateWindow(static_cast<int>(w), static_cast<int>(h), i_title.c_str(), NULL, NULL);
         glfwSetWindowUserPointer(hwnd, this);
         glfwSetWindowPosCallback(hwnd, pos_event_handler);
         glfwSetWindowSizeCallback(hwnd, size_event_handler);
@@ -445,7 +451,7 @@ namespace WindowHandler_Lib
 		return window_handle;
 	}
 
-	int WindowHandler::get_width()
+	std::int64_t WindowHandler::get_width()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -458,7 +464,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	int WindowHandler::get_height()
+	std::int64_t WindowHandler::get_height()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -471,7 +477,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	int WindowHandler::get_location_x()
+	std::int64_t WindowHandler::get_location_x()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -484,7 +490,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	int WindowHandler::get_location_y()
+	std::int64_t WindowHandler::get_location_y()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -502,39 +508,39 @@ namespace WindowHandler_Lib
 		return title;
 	}
 
-	void WindowHandler::set_width(int width)
+	void WindowHandler::set_width(std::int64_t width)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, 0, 0, width, get_height(), SWP_NOZORDER | SWP_NOMOVE);
 #else
-		glfwSetWindowSize(hwnd, width, get_height());
+		glfwSetWindowSize(hwnd, static_cast<int>(width), static_cast<int>(get_height()));
 #endif
 	}
 
-	void WindowHandler::set_height(int height)
+	void WindowHandler::set_height(std::int64_t height)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, get_width(), height, 0, 0, SWP_NOZORDER | SWP_NOMOVE);
 #else
-		glfwSetWindowSize(hwnd, get_width(), height);
+		glfwSetWindowSize(hwnd, static_cast<int>(get_width()), static_cast<int>(height));
 #endif
 	}
 
-	void WindowHandler::set_location_x(int x)
+	void WindowHandler::set_location_x(std::int64_t x)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, x, get_location_y(), 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 #else
-		glfwSetWindowPos(hwnd, x, get_location_y());
+		glfwSetWindowPos(hwnd, static_cast<int>(x), static_cast<int>(get_location_y()));
 #endif
 	}
 
-	void WindowHandler::set_location_y(int y)
+	void WindowHandler::set_location_y(std::int64_t y)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, get_location_x(), y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 #else
-		glfwSetWindowPos(hwnd, get_location_y(), y);
+		glfwSetWindowPos(hwnd, static_cast<int>(get_location_y()), static_cast<int>(y));
 #endif
 	}
 
