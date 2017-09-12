@@ -6,19 +6,19 @@ A cross platform window creation lib.
 #ifndef IWINDOW_HANLER_LIB
 #define IWINDOW_HANLER_LIB
 
-#if defined(_WIN32) || defined(__WIN32__)
-    #ifdef IWINDOW_HANLER_LIB_DLL_EXPORTS
-        #define IWINDOW_HANLER_LIB_DLL_EXPORT __declspec(dllexport)
-    #else
-        #define IWINDOW_HANLER_LIB_DLL_EXPORT  __declspec(dllimport)
-    #endif
-#else
-    #define IWINDOW_HANLER_LIB_DLL_EXPORT
-#endif
-
 #include <string>
 #include "WindowHandle.hpp"
 #include "Defs.h"
+
+#ifdef MS_WINDOWS_ENV
+#	ifdef IWINDOW_HANLER_LIB_DLL_EXPORTS
+#		define IWINDOW_HANLER_LIB_DLL_EXPORT __declspec(dllexport)
+#	else
+#		define IWINDOW_HANLER_LIB_DLL_EXPORT  __declspec(dllimport)
+#	endif
+#else
+    #define IWINDOW_HANLER_LIB_DLL_EXPORT
+#endif
 
 namespace WindowHandler_Lib
 {

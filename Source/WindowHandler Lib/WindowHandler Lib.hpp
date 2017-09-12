@@ -6,14 +6,16 @@ A cross platform window creation lib.
 #ifndef WINDOW_HANLER_LIB
 #define WINDOW_HANLER_LIB
 
-#include <string>
-#if defined(_WIN32) || defined(__WIN32__)
-#include <Windows.h>
-#else
-#include "../../Includes/GLFW/glfw3.h"
-#endif
 #include "WindowHandle.hpp"
 #include "IWindowHandler Lib.hpp"
+#include "Defs.h"
+
+#include <string>
+#ifdef MS_WINDOWS_ENV
+#	include <Windows.h>
+#else
+#	include "../../Includes/GLFW/glfw3.h"
+#endif
 
 namespace WindowHandler_Lib
 {
