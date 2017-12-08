@@ -64,7 +64,7 @@ namespace FS_Lib
 
 	bool File::read_data(void* i_data, std::size_t size, std::size_t at) const
 	{
-		if (at < data.size() && (at + size) < data.size())
+		if ((at + size) <= data.size())
 		{
 			memcpy(i_data, &data[at], size);
 			return true;

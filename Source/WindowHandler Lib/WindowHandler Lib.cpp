@@ -109,30 +109,31 @@ namespace WindowHandler_Lib
 #endif
 
 #ifdef MS_WINDOWS_ENV
-	void WindowHandler::init_pfd()
+	inline void WindowHandler::init_pfd()
 	{
 		pfd = {
-			sizeof(PIXELFORMATDESCRIPTOR),
-			1,
-			PFD_DRAW_TO_WINDOW |
-			PFD_SUPPORT_OPENGL |
-			PFD_DOUBLEBUFFER,
-			PFD_TYPE_RGBA,
-			32,
-			0, 0, 0, 0, 0, 0,
-			0,
-			1,
-			0,
-			0, 0, 0, 0,
-			32,
-			0,
-			0,
-			PFD_MAIN_PLANE,
-			0,
-			0, 0, 0 };
+			sizeof(PIXELFORMATDESCRIPTOR),  //  size of this pfd  
+			1,						// version number  
+			PFD_DRAW_TO_WINDOW |	// support window  
+			PFD_SUPPORT_OPENGL |	// support OpenGL  
+			PFD_DOUBLEBUFFER,		// double buffered  
+			PFD_TYPE_RGBA,			// RGBA type  
+			24,						// 24-bit color depth  
+			0, 0, 0, 0, 0, 0,		// color bits ignored  
+			0,						// no alpha buffer  
+			0,						// shift bit ignored  
+			0,						// no accumulation buffer  
+			0, 0, 0, 0,				// accum bits ignored  
+			8,						// 8-bit z-buffer      
+			0,						// no stencil buffer  
+			0,						// no auxiliary buffer
+			PFD_MAIN_PLANE,			// main layer (GDI specific)
+			0,						// reserved (GDI specific)
+			0, 0, 0					// layer masks ignored (GDI specific)
+		};
 	}
 
-	void WindowHandler::init_wnd_class()
+	inline void WindowHandler::init_wnd_class()
 	{
 		//init window class
 		wnd_class.style = CS_HREDRAW | CS_VREDRAW;
@@ -157,7 +158,7 @@ namespace WindowHandler_Lib
 #else
 #endif
 
-	void WindowHandler::init_wnd_hints()
+	inline void WindowHandler::init_wnd_hints()
 	{
 #ifdef MS_WINDOWS_ENV
 		init_pfd();
@@ -170,8 +171,8 @@ namespace WindowHandler_Lib
 		glfw_hints.wh_red_bits = 8;
 		glfw_hints.wh_green_bits = 8;
 		glfw_hints.wh_blue_bits = 8;
-		glfw_hints.wh_alpha_bits = 8;
-		glfw_hints.wh_depth_bits = 24;
+		glfw_hints.wh_alpha_bits = 0;
+		glfw_hints.wh_depth_bits = 8;
 		glfw_hints.wh_stencil_bits = 8;
 		glfw_hints.wh_accum_red_bits = 0;
 		glfw_hints.wh_accum_green_bits = 0;
@@ -207,6 +208,7 @@ namespace WindowHandler_Lib
 		{
 		case WH_SUPPORT_OPENGL:
 #ifdef MS_WINDOWS_ENV
+			pfd.dwFlags = (hint_value == HV_TRUE) ? (pfd.dwFlags | PFD_SUPPORT_OPENGL) : (pfd.dwFlags & ~PFD_SUPPORT_OPENGL);
 #else
             glfw_hints.wh_client_api = (hint_value == HV_TRUE) ? GLFW_OPENGL_API : GLFW_NO_API;
 #endif
@@ -332,7 +334,7 @@ namespace WindowHandler_Lib
 		}
 	}
 
-	bool WindowHandler::create_window(std::int64_t x, std::int64_t y, std::int64_t w, std::int64_t h, const std::string &i_title)
+	bool WindowHandler::create_window(int x, int y, int w, int h, const std::string &i_title)
 	{
 		title = i_title;
 #ifdef MS_WINDOWS_ENV
@@ -357,7 +359,7 @@ namespace WindowHandler_Lib
 		glfwWindowHint(GLFW_DOUBLEBUFFER, glfw_hints.wh_doublebuffer);
 		glfwWindowHint(GLFW_CLIENT_API, glfw_hints.wh_client_api);
 		glfwWindowHint(GLFW_CONTEXT_CREATION_API, glfw_hints.wh_context_creation_api);
-		hwnd = glfwCreateWindow(static_cast<int>(w), static_cast<int>(h), i_title.c_str(), NULL, NULL);
+		hwnd = glfwCreateWindow(w, h, i_title.c_str(), NULL, NULL);
         glfwSetWindowUserPointer(hwnd, this);
         glfwSetWindowPosCallback(hwnd, pos_event_handler);
         glfwSetWindowSizeCallback(hwnd, size_event_handler);
@@ -451,7 +453,7 @@ namespace WindowHandler_Lib
 		return window_handle;
 	}
 
-	std::int64_t WindowHandler::get_width()
+	int WindowHandler::get_width()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -464,7 +466,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	std::int64_t WindowHandler::get_height()
+	int WindowHandler::get_height()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -477,7 +479,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	std::int64_t WindowHandler::get_location_x()
+	int WindowHandler::get_location_x()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -490,7 +492,7 @@ namespace WindowHandler_Lib
 #endif
 	}
 
-	std::int64_t WindowHandler::get_location_y()
+	int WindowHandler::get_location_y()
 	{
 #ifdef MS_WINDOWS_ENV
 		RECT window_rect;
@@ -508,39 +510,39 @@ namespace WindowHandler_Lib
 		return title;
 	}
 
-	void WindowHandler::set_width(std::int64_t width)
+	void WindowHandler::set_width(int width)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, 0, 0, width, get_height(), SWP_NOZORDER | SWP_NOMOVE);
 #else
-		glfwSetWindowSize(hwnd, static_cast<int>(width), static_cast<int>(get_height()));
+		glfwSetWindowSize(hwnd, width, get_height());
 #endif
 	}
 
-	void WindowHandler::set_height(std::int64_t height)
+	void WindowHandler::set_height(int height)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, get_width(), height, 0, 0, SWP_NOZORDER | SWP_NOMOVE);
 #else
-		glfwSetWindowSize(hwnd, static_cast<int>(get_width()), static_cast<int>(height));
+		glfwSetWindowSize(hwnd, get_width(), height);
 #endif
 	}
 
-	void WindowHandler::set_location_x(std::int64_t x)
+	void WindowHandler::set_location_x(int x)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, x, get_location_y(), 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 #else
-		glfwSetWindowPos(hwnd, static_cast<int>(x), static_cast<int>(get_location_y()));
+		glfwSetWindowPos(hwnd, x, get_location_y());
 #endif
 	}
 
-	void WindowHandler::set_location_y(std::int64_t y)
+	void WindowHandler::set_location_y(int y)
 	{
 #ifdef MS_WINDOWS_ENV
 		SetWindowPos(hwnd, HWND_TOP, get_location_x(), y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 #else
-		glfwSetWindowPos(hwnd, static_cast<int>(get_location_y()), static_cast<int>(y));
+		glfwSetWindowPos(hwnd, get_location_y(), y);
 #endif
 	}
 
