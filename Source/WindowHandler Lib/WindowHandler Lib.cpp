@@ -383,6 +383,7 @@ namespace WindowHandler_Lib
 	{
 #ifdef MS_WINDOWS_ENV
 		ShowWindow(hwnd, gdi_show_mode_map[window_show_mode]);
+		UpdateWindow(hwnd);
 #else
 		switch (window_show_mode)
 		{
@@ -445,10 +446,10 @@ namespace WindowHandler_Lib
 		int current_pf = GetPixelFormat(hdc);
 		int pf = ChoosePixelFormat(hdc, &pfd); //layer masks ignored
 		if (pf != current_pf)
-			SetPixelFormat(hdc, current_pf, &pfd);
-		WindowHandle window_handle(&hdc);
+			SetPixelFormat(hdc, pf, &pfd);
+		WindowHandle window_handle((void*)hdc);
 #else
-		WindowHandle window_handle(&hwnd);
+		WindowHandle window_handle((void*)hwnd);
 #endif
 		return window_handle;
 	}

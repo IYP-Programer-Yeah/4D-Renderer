@@ -10,9 +10,11 @@ namespace WindowHandler_Lib
 {
 	class WindowHandle
 	{
-		void* handle;
 	public:
-		WindowHandle(void* i_handle);
+		const void* handle;
+
+		WindowHandle() = delete;
+		WindowHandle(const void* i_handle) : handle(i_handle) {};
 	};
 }
 #endif

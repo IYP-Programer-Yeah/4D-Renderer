@@ -29,9 +29,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandler Lib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

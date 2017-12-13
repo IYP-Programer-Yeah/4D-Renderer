@@ -1,5 +1,6 @@
 #include "../FS Lib/FS Lib.hpp"
 #include "../WindowHandler Lib/IWindowHandler Lib.hpp"
+#include "../OpenGL Renderer Lib/IOpenGLRenderer Lib.hpp"
 #include "Defs.h"
 #include <iostream>
 
@@ -11,11 +12,12 @@ int main()
 #endif
 {
     WindowHandler_Lib::IWindowHandler *wh = WindowHandler_Lib::creat_window_handler();
-    wh->hint_window(WindowHandler_Lib::IWindowHandler::WH_SUPPORT_OPENGL, WindowHandler_Lib::IWindowHandler::HV_FALSE);
 	bool window_created = wh->create_window(0, 0, 500, 500, std::string("hello"));
-    wh->show_window(WindowHandler_Lib::IWindowHandler::SM_SHOW);
+    wh->show_window(WindowHandler_Lib::IWindowHandler::SM_SHOWMAXIMIZED);
+	auto opengl_renderer = OpenGLRenderer_Lib::create_opengl_renderer(wh->get_handle());
 	while (window_created)
 	{
+		opengl_renderer->render();
 		wh->get_event();
 		std::cout << "hello\n";
 	}

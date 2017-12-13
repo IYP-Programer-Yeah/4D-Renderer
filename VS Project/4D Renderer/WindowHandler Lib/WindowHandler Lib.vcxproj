@@ -26,7 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\WindowHandler Lib\IWindowHandler Lib.cpp" />
-    <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandle.cpp" />
     <ClCompile Include="..\..\..\Source\WindowHandler Lib\WindowHandler Lib.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

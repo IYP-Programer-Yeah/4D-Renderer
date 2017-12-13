@@ -88,7 +88,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\..\Lib\Debug\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowHandler Lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WindowHandler Lib.lib;OpenGL32.lib;GLEW32.lib;GlU32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\..\Lib\Debug\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowHandler Lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WindowHandler Lib.lib;OpenGL32.lib;GLEW32.lib;GlU32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,7 +114,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\..\..\Lib\Release\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowHandler Lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WindowHandler Lib.lib;OpenGL32.lib;GLEW32.lib;GlU32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,18 +129,20 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\..\..\Lib\Release\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowHandler Lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WindowHandler Lib.lib;OpenGL32.lib;GLEW32.lib;GlU32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\OpenGL Renderer Lib\IOpenGLRenderer Lib.cpp" />
+    <ClCompile Include="..\..\..\Source\OpenGL Renderer Lib\OpenGLHandle.cpp" />
     <ClCompile Include="..\..\..\Source\OpenGL Renderer Lib\OpenGLRenderer Lib.cpp" />
-    <ClCompile Include="..\..\..\Source\OpenGL Renderer Lib\WindowContext.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\Defs.h" />
     <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\IOpenGLRenderer Lib.hpp" />
+    <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\OpenGLHandle.hpp" />
     <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\OpenGLRenderer Lib.hpp" />
-    <ClInclude Include="..\..\..\Source\OpenGL Renderer Lib\WindowContext.hpp" />
+    <ClInclude Include="..\..\..\Source\WindowHandler Lib\WindowHandle.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
