@@ -3,7 +3,7 @@
 in vec2 vert_coord;
 out vec3 frag_color;	
 
-uniform float g;								
+uniform float g;
 
 void main()
 {
