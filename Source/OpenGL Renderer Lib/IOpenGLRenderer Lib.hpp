@@ -25,6 +25,7 @@ namespace OpenGLRenderer_Lib
     {
 	public:
 		virtual void render() = 0;
+		virtual void init() = 0;
     };
 	IOPENGL_RENDERER_LIB_DLL_EXPORT IOpenGLRenderer* create_opengl_renderer(const WindowHandler_Lib::WindowHandle &window_handle);
 	IOPENGL_RENDERER_LIB_DLL_EXPORT void delete_opengl_renderer(IOpenGLRenderer* window_handler);

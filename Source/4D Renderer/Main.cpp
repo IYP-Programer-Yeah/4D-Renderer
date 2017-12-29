@@ -13,12 +13,13 @@ int main()
 {
     WindowHandler_Lib::IWindowHandler *wh = WindowHandler_Lib::creat_window_handler();
 	bool window_created = wh->create_window(0, 0, 500, 500, std::string("hello"));
-    wh->show_window(WindowHandler_Lib::IWindowHandler::SM_SHOWMAXIMIZED);
+    wh->show_window(WindowHandler_Lib::IWindowHandler::SM_MAXIMIZED);
 	auto opengl_renderer = OpenGLRenderer_Lib::create_opengl_renderer(wh->get_handle());
+	opengl_renderer->init();
 	while (window_created)
 	{
 		opengl_renderer->render();
-		wh->get_event();
+		wh->peek_event();
 		std::cout << "hello\n";
 	}
 	return 0;
