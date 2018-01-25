@@ -7,6 +7,9 @@
 #include "OpenGLHandle.hpp"
 #include "../../Includes/GL/glew.h"
 #include "../FS Lib/FS Lib.hpp"
+#include <cmath>
+
+#define PI  3.14159265359f
 
 namespace OpenGLRenderer_Lib
 {
@@ -69,6 +72,8 @@ namespace OpenGLRenderer_Lib
 		}
 
 		glBindAttribLocation(program_id, 0, "vert_coord");
+		glBindAttribLocation(program_id, 1, "texture_coord");
+		glBindAttribLocation(program_id, 2, "normal");
 		glBindFragDataLocation(program_id, 0, "color");
 
 		glLinkProgram(program_id);
@@ -96,47 +101,151 @@ namespace OpenGLRenderer_Lib
 			exit(0);
 	
 		load_shader("../../../Source/OpenGL Renderer Lib/Shaders/VS00.vert", "../../../Source/OpenGL Renderer Lib/Shaders/FS00.frag");
+
+
+		//glViewport(0, 0, 1024, 728);
+
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClearDepth(0.0f);
+
+		glDepthFunc(GL_GREATER);
+
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
+
+
+		g_location = glGetUniformLocation(program_id, "g");
+
+		texture_id;
+		glGenTextures(1, &texture_id);
+
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+
+		uint8_t *texture = new uint8_t[1024*1024*3];
+		for (int i = 0; i < 1024; i++)
+			for (int j = 0; j < 1024; j++)
+				for (int k = 0; k < 3; k++)
+					texture[(i*1024+j)*3+k] = (i*j / 8192 + k*i/24);
+
+		glProgramUniform1i(program_id, glGetUniformLocation(program_id, "tex2d"), 0);
+
 		
-		float data[] = { -1.0, -1.0,
-						-1.0, 1.0,
-						1.0, -1.0,
-						1.0, 1.0};
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, texture);
+
+		uint32_t count = 100 * 100 + 2;
+		float *sphere = new float[count*8];
+		indices = new uint32_t[200 * 100 * 3];
+
+		for (int i = 1; i < 101; i++)
+			for (int j = 0; j < 100; j++)
+			{
+				sphere[((i-1) * 100 + j) * 8] = std::cos((PI*i) / 101.0f);
+				sphere[((i-1) * 100 + j) * 8 + 1] = std::sin((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
+				sphere[((i-1) * 100 + j) * 8 + 2] = std::cos((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
+				sphere[((i-1) * 100 + j) * 8 + 3] = std::cos((PI*i) / 101.0f);
+				sphere[((i-1) * 100 + j) * 8 + 4] = std::sin((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
+				sphere[((i-1) * 100 + j) * 8 + 5] = std::cos((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
+				sphere[((i-1) * 100 + j) * 8 + 6] = i/101.0f;
+				sphere[((i-1) * 100 + j) * 8 + 7] = j/101.0f;
+			}
+
+		sphere[10000 * 8] = -1.0f;
+		sphere[10000 * 8 + 1] = 0.0f;
+		sphere[10000 * 8 + 2] = 0.0f;
+		sphere[10000 * 8 + 3] = -1.0f;
+		sphere[10000 * 8 + 4] = 0.0f;
+		sphere[10000 * 8 + 5] = 0.0f;
+		sphere[10000 * 8 + 6] = 0.0f;
+		sphere[10000 * 8 + 7] = 0.5f;
+
+		sphere[10001 * 8] = 1.0f;
+		sphere[10001 * 8 + 1] = 0.0f;
+		sphere[10001 * 8 + 2] = 0.0f;
+		sphere[10001 * 8 + 3] = 1.0f;
+		sphere[10001 * 8 + 4] = 0.0f;
+		sphere[10001 * 8 + 5] = 0.0f;
+		sphere[10001 * 8 + 6] = 1.0f;
+		sphere[10001 * 8 + 7] = 0.5f;
+
+		for (int i = 0; i < 99; i++)
+			for (int j = 0; j < 100; j++)
+			{
+				indices[(i * 100 + j) * 6 + 0] = i * 100 + j;
+				indices[(i * 100 + j) * 6 + 1] = i * 100 + j + 1;
+				indices[(i * 100 + j) * 6 + 2] = (i + 1) * 100 + j;
+
+				indices[(i * 100 + j) * 6 + 0 + 3] = (i + 1) * 100 + j;
+				indices[(i * 100 + j) * 6 + 1 + 3] = (i + 1) * 100 + j + 1;
+				indices[(i * 100 + j) * 6 + 2 + 3] = i * 100 + j + 1;
+			}
+
+
+		for (int j = 0; j < 100; j++)
+		{
+			int i = 99;
+			indices[9900 * 6 + 0] = i * 100 + j;
+			indices[9900 * 6 + 1] = i * 100 + j + 1;
+			indices[9900 * 6 + 2] = 10001;
+
+			i = -1;
+			indices[9900 * 6 + 0 + 3] = (i + 1) * 100 + j;
+			indices[9900 * 6 + 1 + 3] = (i + 1) * 100 + j + 1;
+			indices[9900 * 6 + 2 + 3] = 10000;
+		}
 
 		glGenVertexArrays(1, &VAO_ID);//make a new VAO
 		glBindVertexArray(VAO_ID);//bind vao
 		glGenBuffers(1, &VBO_ID);//make a new buffer
 		glBindBuffer(GL_ARRAY_BUFFER, VBO_ID);//binde vbo
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float)*8, data, GL_STATIC_DRAW);//send data to vbo
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * count * 8, sphere, GL_STATIC_DRAW);//send data to vbo
 		glEnableVertexAttribArray(0);//set the index 0
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);//set position first pos: 0-Vert_Pos_Size
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, 0);//stride is 0
+		glEnableVertexAttribArray(1);//set the index 0
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, sizeof(float) * 8, (void*)(sizeof(float) * 3));
+		glEnableVertexAttribArray(2);//set the index 0
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 6));
 		glBindVertexArray(0);//unbind vao
+		glDeleteBuffers(1, &VBO_ID);
 
-		g_location = glGetUniformLocation(program_id, "g");
+		/*glPolygonMode(GL_FRONT, GL_LINE);
+		glPolygonMode(GL_BACK, GL_LINE);*/
 
 
-		glViewport(0, 0, 1024, 728);
+		/*glGenFramebuffers(1, &FBO_ID);
 
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		glClearDepth(0.0f);
-		glDepthFunc(GL_GREATER);
+		glGenRenderbuffers(1, &RBO_ID);
+		glBindRenderbuffer(GL_RENDERBUFFER, RBO_ID);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 1024);
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
+		glBindFramebuffer(GL_FRAMEBUFFER, FBO_ID);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, RBO_ID);
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture_id, 0);*/
+
 	}
 
 	OpenGLRenderer::OpenGLRenderer(const WindowHandler_Lib::WindowHandle &window_handle) : opengl_handle(window_handle) {}
 	void OpenGLRenderer::render()
 	{
-		unsigned int indices[] = { 3, 1, 2, 1, 0, 2 };
 		static uint8_t color = 0;
 		color++;
 		OpenGLSession this_session(opengl_handle);
+
+		/*glBindFramebuffer(GL_FRAMEBUFFER, FBO_ID);
+		GLuint buffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
+		glDrawBuffers(3, buffers);*/
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(program_id);
 		glBindVertexArray(VAO_ID);
 		glUniform1f(g_location, float(color) / 255.0f);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indices);
+		glActiveTexture(GL_TEXTURE0 + 0);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 20000, GL_UNSIGNED_INT, indices);
 		auto err = glGetError();
 		glBindVertexArray(0);
 

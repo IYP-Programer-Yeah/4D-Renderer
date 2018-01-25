@@ -23,8 +23,12 @@ namespace OpenGLRenderer_Lib
 
 		GLuint VAO_ID;
 		GLuint VBO_ID;
+		GLuint RBO_ID;
+		GLuint FBO_ID;
 
 		GLuint g_location;
+		GLuint texture_id;
+		uint32_t *indices;
 
 		const OpenGLHandle opengl_handle;
 		bool load_shader(const std::string v_shader_path, const std::string f_shader_path);

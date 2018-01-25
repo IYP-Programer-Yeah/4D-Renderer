@@ -1,13 +1,18 @@
 #version 450
 
-in vec2 vert_coord;
-out vec3 frag_color;	
+in vec3 vert_coord;
+in vec3 normal;
+in vec2 texture_coord;
+out vec2 frag_texture_coord;
+out vec3 frag_normal;
+out vec3 frag_vert_coord;
 
 uniform float g;
 
 void main()
 {
-	gl_Position = vec4(vert_coord*g, 1.0, 1.0);
-	vec2 normalized_ver_coord = (vert_coord + vec2(1.0,1.0))/2.0;
-	frag_color = vec3(normalized_ver_coord, length(normalized_ver_coord)/3);
+	gl_Position = vec4(vert_coord/**g*/, 1.0);
+	frag_normal = normal;
+	frag_texture_coord = texture_coord;
+	frag_vert_coord = vert_coord;
 }
