@@ -72,8 +72,8 @@ namespace OpenGLRenderer_Lib
 		}
 
 		glBindAttribLocation(program_id, 0, "vert_coord");
-		glBindAttribLocation(program_id, 1, "texture_coord");
-		glBindAttribLocation(program_id, 2, "normal");
+		glBindAttribLocation(program_id, 1, "normal");
+		glBindAttribLocation(program_id, 2, "texture_coord");
 		glBindFragDataLocation(program_id, 0, "color");
 
 		glLinkProgram(program_id);
@@ -128,28 +128,28 @@ namespace OpenGLRenderer_Lib
 		for (int i = 0; i < 1024; i++)
 			for (int j = 0; j < 1024; j++)
 				for (int k = 0; k < 3; k++)
-					texture[(i*1024+j)*3+k] = (i*j / 8192 + k*i/24);
+					texture[(i * 1024 + j) * 3 + k] = (i*k)%255;// (i*j / 8192 + k*i / 24);
 
 		glProgramUniform1i(program_id, glGetUniformLocation(program_id, "tex2d"), 0);
 
 		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, texture);
 
-		uint32_t count = 100 * 100 + 2;
+		uint32_t count = 101 * 101 + 2;
 		float *sphere = new float[count*8];
 		indices = new uint32_t[200 * 100 * 3];
 
-		for (int i = 1; i < 101; i++)
-			for (int j = 0; j < 100; j++)
+		for (int i = 0; i < 101; i++)
+			for (int j = 0; j < 101; j++)
 			{
-				sphere[((i-1) * 100 + j) * 8] = std::cos((PI*i) / 101.0f);
-				sphere[((i-1) * 100 + j) * 8 + 1] = std::sin((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
-				sphere[((i-1) * 100 + j) * 8 + 2] = std::cos((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
-				sphere[((i-1) * 100 + j) * 8 + 3] = std::cos((PI*i) / 101.0f);
-				sphere[((i-1) * 100 + j) * 8 + 4] = std::sin((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
-				sphere[((i-1) * 100 + j) * 8 + 5] = std::cos((PI*j) / 100.0f * 2) * std::sin(PI*i / 101.0f);
-				sphere[((i-1) * 100 + j) * 8 + 6] = i/101.0f;
-				sphere[((i-1) * 100 + j) * 8 + 7] = j/101.0f;
+				sphere[(i * 101 + j) * 8] = std::cos((PI*i) / 100.0f);
+				sphere[(i * 101 + j) * 8 + 1] = std::sin((PI*j) / 100.0f * 2) * std::sin(PI*i / 100.0f);
+				sphere[(i * 101 + j) * 8 + 2] = std::cos((PI*j) / 100.0f * 2) * std::sin(PI*i / 100.0f);
+				sphere[(i * 101 + j) * 8 + 3] = std::cos((PI*i) / 100.0f);
+				sphere[(i * 101 + j) * 8 + 4] = std::sin((PI*j) / 100.0f * 2) * std::sin(PI*i / 100.0f);
+				sphere[(i * 101 + j) * 8 + 5] = std::cos((PI*j) / 100.0f * 2) * std::sin(PI*i / 100.0f);
+				sphere[(i * 101 + j) * 8 + 6] = i/100.0f;
+				sphere[(i * 101 + j) * 8 + 7] = j/100.0f;
 			}
 
 		sphere[10000 * 8] = -1.0f;
@@ -158,7 +158,7 @@ namespace OpenGLRenderer_Lib
 		sphere[10000 * 8 + 3] = -1.0f;
 		sphere[10000 * 8 + 4] = 0.0f;
 		sphere[10000 * 8 + 5] = 0.0f;
-		sphere[10000 * 8 + 6] = 0.0f;
+		sphere[10000 * 8 + 6] = -1.0f;
 		sphere[10000 * 8 + 7] = 0.5f;
 
 		sphere[10001 * 8] = 1.0f;
@@ -173,26 +173,26 @@ namespace OpenGLRenderer_Lib
 		for (int i = 0; i < 99; i++)
 			for (int j = 0; j < 100; j++)
 			{
-				indices[(i * 100 + j) * 6 + 0] = i * 100 + j;
-				indices[(i * 100 + j) * 6 + 1] = i * 100 + j + 1;
-				indices[(i * 100 + j) * 6 + 2] = (i + 1) * 100 + j;
+				indices[(i * 100 + j) * 6 + 0] = i * 101 + j;
+				indices[(i * 100 + j) * 6 + 1] = i * 101 + j + 1;
+				indices[(i * 100 + j) * 6 + 2] = (i + 1) * 101 + j;
 
-				indices[(i * 100 + j) * 6 + 0 + 3] = (i + 1) * 100 + j;
-				indices[(i * 100 + j) * 6 + 1 + 3] = (i + 1) * 100 + j + 1;
-				indices[(i * 100 + j) * 6 + 2 + 3] = i * 100 + j + 1;
+				indices[(i * 100 + j) * 6 + 0 + 3] = (i + 1) * 101 + j;
+				indices[(i * 100 + j) * 6 + 1 + 3] = (i + 1) * 101 + j + 1;
+				indices[(i * 100 + j) * 6 + 2 + 3] = i * 101 + j + 1;
 			}
 
 
 		for (int j = 0; j < 100; j++)
 		{
 			int i = 99;
-			indices[9900 * 6 + 0] = i * 100 + j;
-			indices[9900 * 6 + 1] = i * 100 + j + 1;
+			indices[9900 * 6 + 0] = i * 101 + j;
+			indices[9900 * 6 + 1] = i * 101 + j + 1;
 			indices[9900 * 6 + 2] = 10001;
 
 			i = -1;
-			indices[9900 * 6 + 0 + 3] = (i + 1) * 100 + j;
-			indices[9900 * 6 + 1 + 3] = (i + 1) * 100 + j + 1;
+			indices[9900 * 6 + 0 + 3] = (i + 1) * 101 + j;
+			indices[9900 * 6 + 1 + 3] = (i + 1) * 101 + j + 1;
 			indices[9900 * 6 + 2 + 3] = 10000;
 		}
 
@@ -238,6 +238,8 @@ namespace OpenGLRenderer_Lib
 		GLuint buffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
 		glDrawBuffers(3, buffers);*/
 
+		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(program_id);
 		glBindVertexArray(VAO_ID);
@@ -245,7 +247,7 @@ namespace OpenGLRenderer_Lib
 		glActiveTexture(GL_TEXTURE0 + 0);
 		glBindTexture(GL_TEXTURE_2D, texture_id);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawElements(GL_TRIANGLES, 20000, GL_UNSIGNED_INT, indices);
+		glDrawElements(GL_TRIANGLES, 60000, GL_UNSIGNED_INT, indices);
 		auto err = glGetError();
 		glBindVertexArray(0);
 
